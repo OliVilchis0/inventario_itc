@@ -1,9 +1,15 @@
 package vista;
 
+import java.awt.Image;
+import java.awt.Toolkit;
+
 public class viewInicio extends javax.swing.JFrame {
 
     public viewInicio() {
         initComponents();
+        
+        Image ico = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/CMIC.png"));
+        this.setIconImage(ico);
     }
 
     @SuppressWarnings("unchecked")
