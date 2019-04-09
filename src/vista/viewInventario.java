@@ -68,7 +68,7 @@ public class viewInventario extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         txttextoE = new javax.swing.JTextField();
         jptabla = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
         JTDatos = new javax.swing.JTable();
         jpinferior = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -250,30 +250,20 @@ public class viewInventario extends javax.swing.JPanel {
         jptabla.setBackground(java.awt.Color.white);
         jptabla.setLayout(new java.awt.BorderLayout());
 
-        jScrollPane1.setBackground(java.awt.Color.white);
-        jScrollPane1.setBorder(null);
-        jScrollPane1.setForeground(java.awt.Color.white);
-
-        JTDatos.setAutoCreateRowSorter(true);
-        JTDatos.setFont(new java.awt.Font("DejaVu Sans", 2, 12)); // NOI18N
         JTDatos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        JTDatos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        JTDatos.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
-        JTDatos.setGridColor(javax.swing.UIManager.getDefaults().getColor("Button.foreground"));
-        JTDatos.setMaximumSize(new java.awt.Dimension(100, 144));
-        JTDatos.setMinimumSize(new java.awt.Dimension(200, 400));
-        JTDatos.setSelectionBackground(new java.awt.Color(13, 148, 221));
-        JTDatos.setShowVerticalLines(false);
-        jScrollPane1.setViewportView(JTDatos);
+        jScrollPane2.setViewportView(JTDatos);
 
-        jptabla.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        jptabla.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
         jpinferior.setBackground(new java.awt.Color(255, 255, 255));
         jpinferior.setLayout(new javax.swing.BoxLayout(jpinferior, javax.swing.BoxLayout.LINE_AXIS));
@@ -338,7 +328,7 @@ public class viewInventario extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     public javax.swing.JComboBox<String> jcarea;
     public javax.swing.JComboBox<String> jccategoria;
     public javax.swing.JComboBox<String> jcencargado;
