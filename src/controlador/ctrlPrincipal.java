@@ -1,6 +1,7 @@
 package controlador;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.util.Map;
 import javax.swing.JTable;
@@ -44,7 +45,7 @@ public class ctrlPrincipal {
         this.tc = tc;
         //Metodos de la clase(Graficas)
         this.TotalRow();
-       // this.grafica_Barras();
+        this.grafica_Barras();
         this.grafica_Pastel();
     }
      //Obtener el numero de regitros por cada tabla
@@ -113,32 +114,34 @@ public class ctrlPrincipal {
         plot.setLabelOutlinePaint(null);
         //Linea de etiquete standar
         plot.setLabelLinkStyle(PieLabelLinkStyle.STANDARD);
+        //Agregar al panel
         ChartPanel CP = new ChartPanel(chart);
         vp.JPGpastel.add(CP);
     }
     //Grafica de barras
-    /*public void grafica_Barras(){
+    public void grafica_Barras(){
         //Se almacenan los datos que seran usados en el gráfico
         DefaultCategoryDataset datos = new DefaultCategoryDataset();
-        //Configurar datos de areas
-        /*for (int i = 0; i < ic.areas().size(); i++) {
-          datos.setValue(,"java",ic.areas().get(i));  
-        }*/
-        /*for (Map.Entry<String,Integer> entry: ic.areas().entrySet()) {
+        //variables para el tamao del Scroll
+        int i = 1;
+        int dimencionH = 436;
+        //Listar datos
+        for (Map.Entry<String,Integer> entry: ic.areas().entrySet()) {
             //System.out.println(entry.getKey() + " tiene " + entry.getValue());
             datos.setValue(entry.getValue(),"java",entry.getKey());
-        }
-          //Se crea el gráfico y se asignan algunas caracteristicas
+            i++;
+        } 
+        //Se crea el gráfico y se asignan algunas caracteristicas
         JFreeChart barras = ChartFactory.createBarChart
         (
-            "",
+            "Hoa",
             "Areas",
             "Articulos",
             datos,
             PlotOrientation.VERTICAL,
             true,
             true,
-            false
+            true
         );  
         //Establecer titulo
         TextTitle titulo = new TextTitle("Articulos por area", new Font ("Verdana", Font.PLAIN , 17));
@@ -175,7 +178,12 @@ public class ctrlPrincipal {
         plot.getRangeAxis().setTickMarksVisible(false);
         //Agregar al panel
         ChartPanel CP = new ChartPanel(barras);
-        vp.JPGbarras.add(CP);
+        //Definir el tamao del Scroll
+        if (i > 15) {
+            int diferencia = i - 15;
+            dimencionH += diferencia * 20;
+            this.vp.JPBarras.setPreferredSize(new Dimension(300,dimencionH));
+        }
+        this.vp.JPBarras.add(CP);
     }
-   */
 }

@@ -159,6 +159,38 @@ public class InventarioCrud extends Conexion{
         }
         return consulta_m;
     }
+    //consultar todos los registros de la vista inventario
+    public ArrayList<inventarioVista> consultaVista()
+    {
+        ArrayList consulta = new ArrayList();
+        inventarioVista iVista;
+        try {
+            PreparedStatement ps = null;
+            ResultSet rs = null;
+            Connection con = getConexion();
+        
+            String sql = "SELECT * FROM inventariovista";
+            
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                iVista = new inventarioVista();
+                iVista.setCodigo(rs.getString(1));
+                iVista.setCategory(rs.getString(2));
+                iVista.setDescripcion(rs.getString(3));
+                iVista.setMarca(rs.getString(4));
+                iVista.setModelo(rs.getString(5));
+                iVista.setEstadoFisico(rs.getByte(6));
+                iVista.setArea(rs.getString(7));
+                iVista.setEncargado(rs.getString(8));
+                iVista.setDetalle(rs.getString(9));
+                consulta.add(iVista);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return consulta;
+    }
     //Obtener el numero de regitros de la tabla inventario
     public int numFilas(){
         ResultSet rs = null;
@@ -232,7 +264,8 @@ public class InventarioCrud extends Conexion{
             ResultSet rs = null;
             Connection con = getConexion();
         
-            String sql = "SELECT a.descripcion,sum(cantidad) FROM inventario,area as a WHERE id_area=a.id GROUP BY id_area";
+            String sql = " SELECT a.descripcion AS Area,count(*) AS Total FROM inventario, area AS a "
+                    + "WHERE id_area=a.id GROUP BY id_area";
             
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();

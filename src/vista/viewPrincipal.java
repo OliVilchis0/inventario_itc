@@ -48,8 +48,9 @@ public class viewPrincipal extends javax.swing.JPanel {
         jLabel11 = new javax.swing.JLabel();
         jButton7 = new javax.swing.JButton();
         lbcategorias = new javax.swing.JLabel();
-        JPGbarras = new javax.swing.JPanel();
         JPGpastel = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        JPBarras = new javax.swing.JPanel();
 
         JPPrincipal.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -71,7 +72,7 @@ public class viewPrincipal extends javax.swing.JPanel {
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel9Layout.setVerticalGroup(
@@ -116,7 +117,7 @@ public class viewPrincipal extends javax.swing.JPanel {
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel12Layout.setVerticalGroup(
@@ -231,12 +232,14 @@ public class viewPrincipal extends javax.swing.JPanel {
         lbcategorias.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         JPCategorias.add(lbcategorias, java.awt.BorderLayout.CENTER);
 
-        JPGbarras.setBackground(new java.awt.Color(255, 255, 255));
-        JPGbarras.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(194, 187, 187), new java.awt.Color(194, 187, 187), new java.awt.Color(194, 187, 187), new java.awt.Color(194, 187, 187)));
-        JPGbarras.setLayout(new java.awt.BorderLayout());
-
         JPGpastel.setBackground(new java.awt.Color(255, 255, 255));
         JPGpastel.setLayout(new java.awt.BorderLayout());
+
+        jScrollPane1.setBorder(null);
+
+        JPBarras.setBackground(new java.awt.Color(255, 255, 255));
+        JPBarras.setLayout(new java.awt.GridLayout());
+        jScrollPane1.setViewportView(JPBarras);
 
         javax.swing.GroupLayout JPPrincipalLayout = new javax.swing.GroupLayout(JPPrincipal);
         JPPrincipal.setLayout(JPPrincipalLayout);
@@ -246,18 +249,17 @@ public class viewPrincipal extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(JPPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(JPPrincipalLayout.createSequentialGroup()
-                        .addComponent(JPInventario, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+                        .addComponent(JPInventario, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(JPAreas, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+                        .addComponent(JPAreas, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(JPEncargados, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+                        .addComponent(JPEncargados, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(JPCategorias, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE))
+                        .addComponent(JPCategorias, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE))
                     .addGroup(JPPrincipalLayout.createSequentialGroup()
-                        .addComponent(JPGbarras, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(32, 32, 32)
                         .addComponent(JPGpastel, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1)))
                 .addContainerGap())
         );
         JPPrincipalLayout.setVerticalGroup(
@@ -271,8 +273,8 @@ public class viewPrincipal extends javax.swing.JPanel {
                     .addComponent(JPCategorias, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(JPPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(JPGbarras, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(JPGpastel, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE))
+                    .addComponent(JPGpastel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -291,9 +293,9 @@ public class viewPrincipal extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel JPAreas;
+    public javax.swing.JPanel JPBarras;
     private javax.swing.JPanel JPCategorias;
     private javax.swing.JPanel JPEncargados;
-    public javax.swing.JPanel JPGbarras;
     public javax.swing.JPanel JPGpastel;
     private javax.swing.JPanel JPInventario;
     public javax.swing.JPanel JPPrincipal;
@@ -309,6 +311,7 @@ public class viewPrincipal extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JLabel lbareas;
     public javax.swing.JLabel lbcategorias;
     public javax.swing.JLabel lbencargados;

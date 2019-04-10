@@ -11,8 +11,8 @@ public class InventarioItc {
         //Instanciar controlador de inicio
         ctrlInicio ctrl = new ctrlInicio(win);
         //Atributos de la vista general
+        win.setExtendedState(viewInicio.MAXIMIZED_BOTH);
         win.setVisible(true);
-        win.setExtendedState(MAXIMIZED_BOTH);
         win.setLocationRelativeTo(null);
     }
     

@@ -71,17 +71,17 @@ public class ctrlInventario implements ActionListener,KeyListener {
         modelo.addColumn("Detalles");
         Object[] columna = new Object[9];
         //Obtener al tamano de la lista 
-        int numRegistros = consul.consulta_m().size();
+        int numRegistros = consul.consultaVista().size();
         //Recorrer la lista
         for (int i = 0; i < numRegistros ; i++) {
-            columna[0] = consul.consulta_m().get(i).getId().toUpperCase();
-            columna[1] = consul.consulta_m().get(i).getId_tipo();
-            columna[2] = consul.consulta_m().get(i).getDescripcion().toUpperCase();
-            columna[3] = consul.consulta_m().get(i).getMarca().toUpperCase();
-            columna[4] = consul.consulta_m().get(i).getModelo().toUpperCase();
+            columna[0] = consul.consultaVista().get(i).getCodigo().toUpperCase();
+            columna[1] = consul.consultaVista().get(i).getCategory().toUpperCase();
+            columna[2] = consul.consultaVista().get(i).getDescripcion().toUpperCase();
+            columna[3] = consul.consultaVista().get(i).getMarca().toUpperCase();
+            columna[4] = consul.consultaVista().get(i).getModelo().toUpperCase();
             //Identificar el tipo de condicion
-            if (consul.consulta_m().get(i).getE_fisico() != -1) {
-                if (consul.consulta_m().get(i).getE_fisico() != 0) {
+            if (consul.consultaVista().get(i).getEstadoFisico() != -1) {
+                if (consul.consultaVista().get(i).getEstadoFisico() != 0) {
                     columna[5] = "Bueno".toUpperCase();
                 }else{
                     columna[5] = "Regular".toUpperCase();
@@ -89,9 +89,9 @@ public class ctrlInventario implements ActionListener,KeyListener {
             } else {
                 columna[5] = "Malo".toUpperCase();
             }
-            columna[6] = consul.consulta_m().get(i).getId_area();
-            columna[7] = consul.consulta_m().get(i).getId_encargado();
-            columna[8] = consul.consulta_m().get(i).getDetalles().toUpperCase();
+            columna[6] = consul.consultaVista().get(i).getArea().toUpperCase();
+            columna[7] = consul.consultaVista().get(i).getEncargado().toUpperCase();
+            columna[8] = consul.consultaVista().get(i).getDetalle().toUpperCase();
             modelo.addRow(columna);
         }
     } 

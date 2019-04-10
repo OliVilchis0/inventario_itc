@@ -8,6 +8,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import javax.swing.ImageIcon;
+import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
 public class ctrlInicio implements ActionListener{
     private viewInicio vi;
@@ -15,6 +16,7 @@ public class ctrlInicio implements ActionListener{
     public ctrlInicio(viewInicio vi) {
         //Ventana General
         this.vi = vi;
+        this.vi.setDefaultCloseOperation(EXIT_ON_CLOSE);
         vi.bntInicio.setBackground(Color.red);
         //Cargar panel de principal
         viewPrincipal vp = new viewPrincipal();
