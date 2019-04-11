@@ -290,5 +290,9 @@ public class ctrlInventario implements ActionListener,KeyListener {
         this.ventana.txtmarca.setText(null);
         this.ventana.txtmodelo.setText(null);
     }
-    
+    //obtener el id del empleado de acuerdo a su nombre obtenido del combobox
+    public int getIdCategory(String nombre){
+        
+        return 0;
+    }
 }
