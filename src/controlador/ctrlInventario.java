@@ -16,7 +16,6 @@ import javax.swing.table.TableRowSorter;
 import modelo.*;
 import vista.viewAreaAD;
 import vista.viewCateAD;
-//import vista.viewCateAD;
 import vista.viewEncarAD;
 import vista.viewInventario;
 
@@ -93,6 +92,7 @@ public class ctrlInventario implements ActionListener,KeyListener {
             columna[7] = consul.consultaVista().get(i).getEncargado().toUpperCase();
             columna[8] = consul.consultaVista().get(i).getDetalle().toUpperCase();
             modelo.addRow(columna);
+            this.ventana.JLfilas.setText("Mostrando 10 registros de un totla de "+modelo.getRowCount());
         }
     } 
     /* Método filtro*/
@@ -202,6 +202,8 @@ public class ctrlInventario implements ActionListener,KeyListener {
             }else{
                Inventario mt = new Inventario();
                mt.setId(ventana.txtcodigo.getText());
+               //obtener el id del empleado a partir delcombobox
+               
                mt.setId_tipo(3);
                mt.setDescripcion(ventana.txtdescripcion.getText());
                mt.setMarca(ventana.txtmarca.getText());
@@ -288,4 +290,5 @@ public class ctrlInventario implements ActionListener,KeyListener {
         this.ventana.txtmarca.setText(null);
         this.ventana.txtmodelo.setText(null);
     }
+    
 }

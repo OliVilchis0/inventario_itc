@@ -71,7 +71,7 @@ public class viewInventario extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         JTDatos = new javax.swing.JTable();
         jpinferior = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        JLfilas = new javax.swing.JLabel();
 
         setBackground(java.awt.Color.white);
 
@@ -268,9 +268,9 @@ public class viewInventario extends javax.swing.JPanel {
         jpinferior.setBackground(new java.awt.Color(255, 255, 255));
         jpinferior.setLayout(new javax.swing.BoxLayout(jpinferior, javax.swing.BoxLayout.LINE_AXIS));
 
-        jLabel1.setFont(new java.awt.Font("DejaVu Sans", 2, 12)); // NOI18N
-        jLabel1.setText("Mostrando 1 a 10 registros de 78");
-        jpinferior.add(jLabel1);
+        JLfilas.setFont(new java.awt.Font("DejaVu Sans", 2, 12)); // NOI18N
+        JLfilas.setText("Mostrando 1 a 10 registros de 78");
+        jpinferior.add(JLfilas);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -310,6 +310,7 @@ public class viewInventario extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JComboBox JCondicion;
+    public javax.swing.JLabel JLfilas;
     public javax.swing.JTable JTDatos;
     public javax.swing.JButton bntmiltiple;
     public javax.swing.JButton btnMasArea;
@@ -319,7 +320,6 @@ public class viewInventario extends javax.swing.JPanel {
     public javax.swing.JButton btnguardar;
     public javax.swing.JButton btnlimpiar;
     private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

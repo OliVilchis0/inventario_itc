@@ -3,11 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/OLI_J/Documents/NetBeansProjects/inventario_itc/src/vista/viewPrincipal.java</file>
+            <file>file:/C:/Users/OLI_J/Documents/NetBeansProjects/inventario_itc/src/controlador/ctrlInventario.java</file>
+            <file>file:/C:/Users/OLI_J/Documents/NetBeansProjects/inventario_itc/src/modelo/InventarioCrud.java</file>
             <file>file:/C:/Users/OLI_J/Documents/NetBeansProjects/inventario_itc/src/vista/viewInventario.java</file>
-            <file>file:/C:/Users/OLI_J/Documents/NetBeansProjects/inventario_itc/src/controlador/ctrlPrincipal.java</file>
-            <file>file:/C:/Users/OLI_J/Documents/NetBeansProjects/inventario_itc/src/modelo/AreaCrud.java</file>
-            <file>file:/C:/Users/OLI_J/Documents/NetBeansProjects/inventario_itc/src/vista/viewInicio.java</file>
         </group>
     </open-files>
 </project-private>
