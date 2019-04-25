@@ -3,6 +3,8 @@ package controlador;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Map;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -26,9 +28,12 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.ui.RectangleEdge;
 import org.jfree.ui.RectangleInsets;
+import vista.viewAreaAD;
+import vista.viewCateAD;
+import vista.viewEncarAD;
 import vista.viewPrincipal;
 
-public class ctrlPrincipal {
+public class ctrlPrincipal implements ActionListener {
     private viewPrincipal vp;
     private InventarioCrud ic;
     private AreaCrud ac;
@@ -47,6 +52,11 @@ public class ctrlPrincipal {
         this.TotalRow();
         this.grafica_Barras();
         this.grafica_Pastel();
+        //Activar botones para lanzar un evento
+        this.vp.btnAreas.addActionListener(this);
+        this.vp.btnCategory.addActionListener(this);
+        this.vp.btnEncar.addActionListener(this);
+        this.vp.btninvetario.addActionListener(this);
     }
      //Obtener el numero de regitros por cada tabla
     public void TotalRow(){
@@ -185,5 +195,36 @@ public class ctrlPrincipal {
             this.vp.JPBarras.setPreferredSize(new Dimension(300,dimencionH));
         }
         this.vp.JPBarras.add(CP);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        if (ae.getSource() == this.vp.btnAreas) {
+            //instanciar vista
+            viewAreaAD viewA = new viewAreaAD();
+            //Instanciar modelo
+            AreaCrud areaC = new AreaCrud();
+            //Instanciar el controlador
+            ctrlAreaAD crtlA = new ctrlAreaAD(viewA,areaC);
+        }
+        if (ae.getSource() == this.vp.btnCategory) {
+           //instanciar vista
+            viewCateAD viewT = new viewCateAD();
+            //Instanciar modelo
+            TipoCrud TipoC = new TipoCrud();
+            //Instanciar el controlador
+            ctrlTipoAD crtlA = new ctrlTipoAD(viewT,TipoC);  
+        }
+        if (ae.getSource() == this.vp.btnEncar) {
+           //instanciar vista
+            viewEncarAD viewA = new viewEncarAD();
+            //Instanciar modelo
+            EncargadoCrud areaC = new EncargadoCrud();
+            //Instanciar el controlador
+            ctrlecgd crtlA = new ctrlecgd(viewA,areaC); 
+        }
+        if (ae.getSource() == this.vp.btninvetario) {
+            
+        }
     }
 }

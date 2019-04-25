@@ -35,8 +35,8 @@ public class viewInicio extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         JPPrincipal = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
+        jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(800, 500));
@@ -96,7 +96,6 @@ public class viewInicio extends javax.swing.JFrame {
         btnareas.setMaximumSize(new java.awt.Dimension(183, 26));
         btnareas.setMinimumSize(new java.awt.Dimension(183, 26));
         btnareas.setPreferredSize(new java.awt.Dimension(200, 40));
-        btnareas.setRolloverEnabled(true);
         JPSidebar.add(btnareas);
 
         btnEcds.setBackground(new java.awt.Color(52, 58, 64));
@@ -227,11 +226,11 @@ public class viewInicio extends javax.swing.JFrame {
             .addComponent(JPSidebar, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE)
         );
 
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
-
         jMenu2.setText("Edit");
         jMenuBar1.add(jMenu2);
+
+        jMenu1.setText("File");
+        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 

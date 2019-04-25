@@ -88,6 +88,8 @@ public class viewInventario extends javax.swing.JPanel {
 
         jpcodigo.setBackground(new java.awt.Color(255, 255, 255));
         jpcodigo.setLayout(new javax.swing.BoxLayout(jpcodigo, javax.swing.BoxLayout.LINE_AXIS));
+
+        txtcodigo.setEnabled(false);
         jpcodigo.add(txtcodigo);
 
         btnauto.setBackground(new java.awt.Color(0, 123, 255));

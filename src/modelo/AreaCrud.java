@@ -105,6 +105,36 @@ public class AreaCrud extends Conexion{
             }
         }
     }
+    //Buscar un registro por su nombre
+    public boolean buscarNom(Area a){
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Connection con = getConexion();
+        
+        String sql = "SELECT * FROM area WHERE descripcion=?";
+        
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, a.getDescripcion());
+            rs = ps.executeQuery();
+            
+            if (rs.next()) {
+                a.setId(Integer.parseInt(rs.getString("id")));
+                a.setDescripcion(rs.getString("descripcion"));
+                return true;
+            }
+            return false;
+        } catch (SQLException e) {
+            System.err.println(e);
+            return false;
+        }finally{
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.err.println(e);
+            }
+        }
+    }
     //consultar todos los registros
     public ArrayList<Area> consulta(){
         ArrayList consulta = new ArrayList();

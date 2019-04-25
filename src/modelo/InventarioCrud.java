@@ -266,7 +266,7 @@ public class InventarioCrud extends Conexion{
         
             String sql = " SELECT a.descripcion AS Area,count(*) AS Total FROM inventario, area AS a "
                     + "WHERE id_area=a.id GROUP BY id_area";
-            
+             
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             //rs.next();

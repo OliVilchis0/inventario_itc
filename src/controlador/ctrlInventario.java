@@ -133,7 +133,8 @@ public class ctrlInventario implements ActionListener,KeyListener {
         //Recorrer los datos de area
         for (int i = 0; i < registrosE; i++) {
             //Establecer datos de area a jcombox
-            this.ventana.jcencargado.addItem(encargadoC.consulta().get(i).getNombre());
+            this.ventana.jcencargado.addItem(encargadoC.consulta().get(i).getNombre()+" "+encargadoC.consulta().get(i).getAp1()
+            +" "+encargadoC.consulta().get(i).getAp2());
         }
     }
     //Metodo para lanzar un evento dependiendo el boton que se oprima
@@ -141,13 +142,6 @@ public class ctrlInventario implements ActionListener,KeyListener {
     public void actionPerformed(ActionEvent e){
         if (e.getSource() == this.ventana.bntmiltiple) {
             System.out.println("funciona boton muliple");
-        }
-        if (e.getSource() == this.ventana.btnguardar) {
-            Inventario invent = new Inventario();
-            invent.setId("1");
-            if (this.consul.buscar(invent)) {
-                System.out.println("ID:\t"+invent.getId()+"Tipo:\t"+invent.getId_tipo()+"descripcion:\t"+invent.getDescripcion());
-            }
         }
         //Mandar a traer el metodo Limpiar 
         if (e.getSource() == this.ventana.btnlimpiar) {
@@ -168,8 +162,7 @@ public class ctrlInventario implements ActionListener,KeyListener {
             //Instanciar modelo
             AreaCrud areaC = new AreaCrud();
             //Instanciar el controlador
-            ctrlAreaAD crtlA = new ctrlAreaAD(viewA,areaC);
-            
+            ctrlAreaAD crtlA = new ctrlAreaAD(viewA,areaC);   
         }
         //Lanzar ventana para agregar encargado
         if (e.getSource() == this.ventana.btnMasEcgd) {
@@ -202,9 +195,8 @@ public class ctrlInventario implements ActionListener,KeyListener {
             }else{
                Inventario mt = new Inventario();
                mt.setId(ventana.txtcodigo.getText());
-               //obtener el id del empleado a partir delcombobox
-               
-               mt.setId_tipo(3);
+               //obtener el id de la catedoria a partir delcombobox
+               mt.setId_tipo(this.getCetegory(this.ventana.jccategoria.getSelectedItem().toString()));
                mt.setDescripcion(ventana.txtdescripcion.getText());
                mt.setMarca(ventana.txtmarca.getText());
                mt.setModelo(ventana.txtmodelo.getText());
@@ -218,8 +210,10 @@ public class ctrlInventario implements ActionListener,KeyListener {
                     }
                 }
                mt.setE_fisico(condicion);
-               mt.setId_area(1);
-               mt.setId_encargado(1);
+               //obtener el id del area a traves del jcombobx
+               mt.setId_area(this.getIdArea(this.ventana.jcarea.getSelectedItem().toString()));
+               //obtener el id del encargado a traves de su nombre mediante JCombobox
+               mt.setId_encargado(this.getIdEncar(this.ventana.jcencargado.getSelectedItem().toString()));
                mt.setDetalles(ventana.txtdetalles.getText());
                if (consul.registrar(mt)) {
                    this.Limpiar();
@@ -291,8 +285,58 @@ public class ctrlInventario implements ActionListener,KeyListener {
         this.ventana.txtmodelo.setText(null);
     }
     //obtener el id del empleado de acuerdo a su nombre obtenido del combobox
-    public int getIdCategory(String nombre){
+    public int getIdArea(String nombre){
+        Area area = new Area();
+        area.setDescripcion(nombre);
+        AreaCrud  ac = new AreaCrud();
+        if (ac.buscarNom(area)) {
+            return area.getId();
+        }else{
+            return 0;
+        }
         
-        return 0;
+    }
+    //obtener el id del encargado mediante el nombre proveniente del JCombobox
+    public int getIdEncar(String Nombre){
+        //separar en nombre y apellido
+        String[] separarNom = Nombre.split(" ");
+        //instanciar la clase encargado
+        Encargado encargado = new Encargado();
+        //verificar si el nombre del encargado tiene sus apellidos ingresados
+        if (separarNom.length != 1) {
+            if (separarNom.length !=2) {
+                encargado.setNombre(separarNom[0]);
+                encargado.setAp1(separarNom[1]);
+                encargado.setAp2(separarNom[2]);
+            } else {
+                encargado.setNombre(separarNom[0]);
+                encargado.setAp1(separarNom[1]);
+                encargado.setAp2("");
+            }
+        } else {
+            encargado.setNombre(separarNom[0]);
+            encargado.setAp1(" ");
+            encargado.setAp2("");
+        }
+        //instanciar el crud de encargado
+        EncargadoCrud ec = new EncargadoCrud();
+        if (ec.buscarNom(encargado)) {
+            return encargado.getId();
+        }else{
+            return 0;
+        } 
+    }
+    //obtener el id de la categoria a apartir de su nombre
+    public int getCetegory(String nombre){
+        //instanciar la clase TipoPro
+        TipoPro tipo = new TipoPro();
+        tipo.setNombre(nombre);
+        //Instanciar la clase TipoCrud
+        TipoCrud tc = new TipoCrud();
+        if (tc.buscarNom(tipo)) {
+            return tipo.getId();
+        }else{
+            return 0;
+        }
     }
 }

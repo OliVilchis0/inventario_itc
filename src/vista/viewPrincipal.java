@@ -31,22 +31,22 @@ public class viewPrincipal extends javax.swing.JPanel {
         JPInventario = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
+        btninvetario = new javax.swing.JButton();
         lbinventario = new javax.swing.JLabel();
         JPAreas = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        jButton5 = new javax.swing.JButton();
+        btnAreas = new javax.swing.JButton();
         lbareas = new javax.swing.JLabel();
         JPEncargados = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        jButton6 = new javax.swing.JButton();
+        btnEncar = new javax.swing.JButton();
         lbencargados = new javax.swing.JLabel();
         JPCategorias = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
-        jButton7 = new javax.swing.JButton();
+        btnCategory = new javax.swing.JButton();
         lbcategorias = new javax.swing.JLabel();
         JPGpastel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -85,15 +85,15 @@ public class viewPrincipal extends javax.swing.JPanel {
 
         JPInventario.add(jPanel9, java.awt.BorderLayout.PAGE_START);
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/mas2.png"))); // NOI18N
-        jButton4.setText("Articulos en total");
-        jButton4.setBorder(null);
-        jButton4.setBorderPainted(false);
-        jButton4.setContentAreaFilled(false);
-        jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton4.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
-        JPInventario.add(jButton4, java.awt.BorderLayout.PAGE_END);
+        btninvetario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/mas2.png"))); // NOI18N
+        btninvetario.setText("Articulos en total");
+        btninvetario.setBorder(null);
+        btninvetario.setBorderPainted(false);
+        btninvetario.setContentAreaFilled(false);
+        btninvetario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btninvetario.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btninvetario.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+        JPInventario.add(btninvetario, java.awt.BorderLayout.PAGE_END);
 
         lbinventario.setFont(new java.awt.Font("DejaVu Sans", 1, 36)); // NOI18N
         lbinventario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -130,15 +130,15 @@ public class viewPrincipal extends javax.swing.JPanel {
 
         JPAreas.add(jPanel12, java.awt.BorderLayout.PAGE_START);
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/mas5.png"))); // NOI18N
-        jButton5.setText("Areas en total");
-        jButton5.setBorder(null);
-        jButton5.setBorderPainted(false);
-        jButton5.setContentAreaFilled(false);
-        jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton5.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
-        JPAreas.add(jButton5, java.awt.BorderLayout.PAGE_END);
+        btnAreas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/mas5.png"))); // NOI18N
+        btnAreas.setText("Areas en total");
+        btnAreas.setBorder(null);
+        btnAreas.setBorderPainted(false);
+        btnAreas.setContentAreaFilled(false);
+        btnAreas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAreas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnAreas.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+        JPAreas.add(btnAreas, java.awt.BorderLayout.PAGE_END);
 
         lbareas.setFont(new java.awt.Font("DejaVu Sans", 1, 36)); // NOI18N
         lbareas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -174,15 +174,15 @@ public class viewPrincipal extends javax.swing.JPanel {
 
         JPEncargados.add(jPanel13, java.awt.BorderLayout.PAGE_START);
 
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/mas3.png"))); // NOI18N
-        jButton6.setText("Encargados en total");
-        jButton6.setBorder(null);
-        jButton6.setBorderPainted(false);
-        jButton6.setContentAreaFilled(false);
-        jButton6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton6.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
-        JPEncargados.add(jButton6, java.awt.BorderLayout.PAGE_END);
+        btnEncar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/mas3.png"))); // NOI18N
+        btnEncar.setText("Encargados en total");
+        btnEncar.setBorder(null);
+        btnEncar.setBorderPainted(false);
+        btnEncar.setContentAreaFilled(false);
+        btnEncar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEncar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnEncar.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+        JPEncargados.add(btnEncar, java.awt.BorderLayout.PAGE_END);
 
         lbencargados.setFont(new java.awt.Font("DejaVu Sans", 1, 36)); // NOI18N
         lbencargados.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -218,15 +218,15 @@ public class viewPrincipal extends javax.swing.JPanel {
 
         JPCategorias.add(jPanel14, java.awt.BorderLayout.PAGE_START);
 
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/mas4.png"))); // NOI18N
-        jButton7.setText("Categorias en total");
-        jButton7.setBorder(null);
-        jButton7.setBorderPainted(false);
-        jButton7.setContentAreaFilled(false);
-        jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton7.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
-        JPCategorias.add(jButton7, java.awt.BorderLayout.PAGE_END);
+        btnCategory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/mas4.png"))); // NOI18N
+        btnCategory.setText("Categorias en total");
+        btnCategory.setBorder(null);
+        btnCategory.setBorderPainted(false);
+        btnCategory.setContentAreaFilled(false);
+        btnCategory.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCategory.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnCategory.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+        JPCategorias.add(btnCategory, java.awt.BorderLayout.PAGE_END);
 
         lbcategorias.setFont(new java.awt.Font("DejaVu Sans", 1, 36)); // NOI18N
         lbcategorias.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -238,7 +238,7 @@ public class viewPrincipal extends javax.swing.JPanel {
         jScrollPane1.setBorder(null);
 
         JPBarras.setBackground(new java.awt.Color(255, 255, 255));
-        JPBarras.setLayout(new java.awt.GridLayout());
+        JPBarras.setLayout(new java.awt.GridLayout(1, 0));
         jScrollPane1.setViewportView(JPBarras);
 
         javax.swing.GroupLayout JPPrincipalLayout = new javax.swing.GroupLayout(JPPrincipal);
@@ -299,10 +299,10 @@ public class viewPrincipal extends javax.swing.JPanel {
     public javax.swing.JPanel JPGpastel;
     private javax.swing.JPanel JPInventario;
     public javax.swing.JPanel JPPrincipal;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
+    public javax.swing.JButton btnAreas;
+    public javax.swing.JButton btnCategory;
+    public javax.swing.JButton btnEncar;
+    public javax.swing.JButton btninvetario;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel6;

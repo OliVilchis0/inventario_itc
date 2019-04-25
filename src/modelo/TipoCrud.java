@@ -108,6 +108,37 @@ public class TipoCrud extends Conexion{
             }
         }
     }
+     //Consultar un registro a partir de su nombre
+    public boolean buscarNom(TipoPro tp){
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Connection con = getConexion();
+        
+        String sql = "SELECT * FROM tipo WHERE nombre=?";
+        
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, tp.getNombre());
+            rs = ps.executeQuery();
+            
+            if (rs.next()) {
+                tp.setId(Integer.parseInt(rs.getString("id")));
+                tp.setNombre(rs.getString("nombre"));
+                tp.setDescripcion(rs.getString("descripcion"));
+                return true;
+            }
+            return false;
+        } catch (SQLException e) {
+            System.err.println(e);
+            return false;
+        }finally{
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.err.println(e);
+            }
+        }
+    }
     //consultar todos los registros
     public ArrayList<TipoPro> consulta(){
         ArrayList consulta = new ArrayList();

@@ -65,6 +65,7 @@ public class viewAreaAD extends javax.swing.JFrame {
 
         jpdatos.setLayout(new java.awt.BorderLayout());
 
+        lbnombre.setBackground(new java.awt.Color(255, 255, 255));
         lbnombre.setFont(new java.awt.Font("DejaVu Sans", 2, 12)); // NOI18N
         lbnombre.setText("Nombre");
         lbnombre.setMaximumSize(new java.awt.Dimension(10, 10));
@@ -75,6 +76,7 @@ public class viewAreaAD extends javax.swing.JFrame {
         lbespacio.setPreferredSize(new java.awt.Dimension(0, 20));
         jpdatos.add(lbespacio, java.awt.BorderLayout.PAGE_START);
 
+        txtnombre.setBackground(new java.awt.Color(255, 255, 255));
         txtnombre.setPreferredSize(new java.awt.Dimension(220, 23));
         jpdatos.add(txtnombre, java.awt.BorderLayout.LINE_END);
 
@@ -175,6 +177,6 @@ public class viewAreaAD extends javax.swing.JFrame {
     private javax.swing.JLabel lbespacio3;
     private javax.swing.JLabel lbnombre;
     private javax.swing.JLabel lbtitulo;
-    private javax.swing.JTextField txtnombre;
+    public javax.swing.JTextField txtnombre;
     // End of variables declaration//GEN-END:variables
 }

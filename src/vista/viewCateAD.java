@@ -62,11 +62,15 @@ public class viewCateAD extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("DejaVu Sans", 2, 12)); // NOI18N
         jLabel2.setText("Nombre");
         jPanel2.add(jLabel2);
+
+        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.add(jTextField1);
 
         jLabel3.setFont(new java.awt.Font("DejaVu Sans", 2, 12)); // NOI18N
         jLabel3.setText("Descripcion");
         jPanel2.add(jLabel3);
+
+        jTextField2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.add(jTextField2);
 
         btncancelar.setBackground(new java.awt.Color(108, 117, 125));
@@ -103,7 +107,7 @@ public class viewCateAD extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();

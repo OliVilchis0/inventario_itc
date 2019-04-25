@@ -114,6 +114,41 @@ public class EncargadoCrud extends Conexion{
             }
         }
     }
+     //Consultar un registro mediante su nombre y apellido
+    public boolean buscarNom(Encargado encargado){
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Connection con = getConexion();
+        
+        String sql = "SELECT * FROM encargado WHERE nombre=? AND apellido_p=? AND apellido_m=?";
+        
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, encargado.getNombre());
+            ps.setString(2,encargado.getAp1());
+            ps.setString(3,encargado.getAp2());
+            rs = ps.executeQuery();
+            
+            if (rs.next()) {
+                encargado.setId(Integer.parseInt(rs.getString("id")));
+                encargado.setNombre(rs.getString("nombre"));
+                encargado.setAp1(rs.getString("apellido_p"));
+                encargado.setAp2(rs.getString("apellido_m"));
+                encargado.setCargo(rs.getString("puesto"));
+                return true;
+            }
+            return false;
+        } catch (SQLException e) {
+            System.err.println(e);
+            return false;
+        }finally{
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.err.println(e);
+            }
+        }
+    }
     //consultar todos los registros
     public ArrayList<Encargado> consulta(){
         ArrayList consulta = new ArrayList();
