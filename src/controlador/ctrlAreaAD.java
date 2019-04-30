@@ -47,8 +47,6 @@ public class ctrlAreaAD implements ActionListener{
                this.area = new Area();
                this.area.setDescripcion(this.viewA.txtnombre.getText());
                 if (this.areaC.registrar(area)) {
-                    viewInventario inv = new viewInventario();
-                    inv.updateUI();
                     JOptionPane.showMessageDialog(null, "Registro Guardado","Aviso",JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(null, "Error al intentar guardar el registro","Aviso",JOptionPane.ERROR_MESSAGE);
