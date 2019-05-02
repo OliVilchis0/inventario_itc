@@ -277,4 +277,24 @@ public class InventarioCrud extends Conexion{
         }
         return areas;
     }
+    //obtener el numero total de objetos dependiendo la categoria
+    public int getObjetos(int id){
+        try {
+            PreparedStatement ps = null;
+            ResultSet rs = null;
+            Connection con = getConexion();
+        
+            String sql = " SELECT count(*) AS total FROM inventario WHERE id_tipo="+id;
+             
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            //rs.next();
+            while(rs.next()){
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            System.out.println("Error");
+        }
+        return 0;
+    }
 }

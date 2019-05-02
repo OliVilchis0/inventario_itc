@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Calendar;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
@@ -45,6 +46,9 @@ public class ctrlInventario implements ActionListener,KeyListener {
         this.ventana.btnMasEcgd.addActionListener(this);
         this.ventana.btnMasCateg.addActionListener(this);
         this.ventana.txttextoE.addKeyListener(this);
+        this.ventana.jccategoria.addActionListener(this);
+        //establecer el codigo por defecto en campo de texto dependiendo si es editable o no
+        this.codigo(this.ventana.jccategoria.getSelectedItem().toString());
     }
     //Lista todos los registros en una tabla
     public void tabla(JTable tabla){
@@ -73,7 +77,7 @@ public class ctrlInventario implements ActionListener,KeyListener {
         int numRegistros = consul.consultaVista().size();
         //Recorrer la lista
         for (int i = 0; i < numRegistros ; i++) {
-            columna[0] = consul.consultaVista().get(i).getCodigo().toUpperCase();
+            columna[0] = consul.consultaVista().get(i).getCodigo();
             columna[1] = consul.consultaVista().get(i).getCategory().toUpperCase();
             columna[2] = consul.consultaVista().get(i).getDescripcion().toUpperCase();
             columna[3] = consul.consultaVista().get(i).getMarca().toUpperCase();
@@ -217,14 +221,28 @@ public class ctrlInventario implements ActionListener,KeyListener {
                mt.setDetalles(ventana.txtdetalles.getText());
                if (consul.registrar(mt)) {
                    this.Limpiar();
-                   this.tabla(this.ventana.JTDatos);
+                   this.codigo(this.ventana.jccategoria.getSelectedItem().toString());
                    JOptionPane.showMessageDialog(null, "Registro Guardado");
+                   this.tabla(this.ventana.JTDatos);
                }else{
                    //this.Limpiar();
                    this.tabla(this.ventana.JTDatos);
                    JOptionPane.showMessageDialog(null, "Error al intentar guardar el registro");
                }
             }
+        }
+        //borrar campo de texto del codigo si el usuario lo deshabilita
+        if (e.getSource() == this.ventana.btnauto) {
+            if (!this.ventana.btnauto.isSelected()) {
+                this.ventana.txtcodigo.setText(null);
+            }else{
+                this.codigo(this.ventana.jccategoria.getSelectedItem().toString());
+            }
+        }
+        //Al seleccionar el JCOMBOBOX
+        if (e.getSource() == this.ventana.jccategoria) {
+            String category = this.ventana.jccategoria.getSelectedItem().toString();
+            this.codigo(category);
         }
     }
     @Override
@@ -338,5 +356,20 @@ public class ctrlInventario implements ActionListener,KeyListener {
         }else{
             return 0;
         }
+    }
+    //obtener elc codigo de inventario
+    public void codigo(String category){
+        //obtener el año
+        Calendar cal = Calendar.getInstance();
+        int año = cal.get(Calendar.YEAR);
+        /*obtener el numero total de objetos dependiendo de la categoria obtenida
+        paso 1. obtener el id de la categoria a traves del metodo getCategory
+        paso 2. obtener el numero total con el metodo getObjetos de la clase modelo*/
+        int idCategory = this.getCetegory(category);
+        int num = this.consul.getObjetos(idCategory);
+        //Establecer la cadena de codigo
+        String cadena = "ITC"+año+category.toUpperCase().charAt(0)+"0"+(num+1);
+        //asignarlo a la caja de texto de inventario
+        this.ventana.txtcodigo.setText(cadena);
     }
 }
