@@ -27,6 +27,10 @@ public class viewInventario extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        submenuTabla = new javax.swing.JPopupMenu();
+        JModificar = new javax.swing.JMenuItem();
+        JMEliminar = new javax.swing.JMenuItem();
+        JMPropiedades = new javax.swing.JMenuItem();
         jpinsetar = new javax.swing.JPanel();
         lbcodigo = new javax.swing.JLabel();
         jpcodigo = new javax.swing.JPanel();
@@ -62,7 +66,7 @@ public class viewInventario extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jpbuscar = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<String>();
+        JCrows = new javax.swing.JComboBox<String>();
         jLabel8 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -72,6 +76,21 @@ public class viewInventario extends javax.swing.JPanel {
         JTDatos = new javax.swing.JTable();
         jpinferior = new javax.swing.JPanel();
         JLfilas = new javax.swing.JLabel();
+
+        submenuTabla.setBackground(new java.awt.Color(52, 58, 64));
+        submenuTabla.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        submenuTabla.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        JModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/editar_azul.png"))); // NOI18N
+        JModificar.setText("Modificar");
+        submenuTabla.add(JModificar);
+
+        JMEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/borrar_azul.png"))); // NOI18N
+        JMEliminar.setText("Eliminar");
+        submenuTabla.add(JMEliminar);
+
+        JMPropiedades.setText("Propiedades");
+        submenuTabla.add(JMPropiedades);
 
         setBackground(java.awt.Color.white);
 
@@ -234,10 +253,10 @@ public class viewInventario extends javax.swing.JPanel {
         jLabel7.setText("Mostrar");
         jpbuscar.add(jLabel7);
 
-        jComboBox2.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox2.setFont(new java.awt.Font("DejaVu Sans", 2, 12)); // NOI18N
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10", "25", "50", "100" }));
-        jpbuscar.add(jComboBox2);
+        JCrows.setBackground(new java.awt.Color(255, 255, 255));
+        JCrows.setFont(new java.awt.Font("DejaVu Sans", 2, 12)); // NOI18N
+        JCrows.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10", "25", "50", "100" }));
+        jpbuscar.add(JCrows);
 
         jLabel8.setFont(new java.awt.Font("DejaVu Sans", 2, 12)); // NOI18N
         jLabel8.setText("Registros");
@@ -263,6 +282,7 @@ public class viewInventario extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        JTDatos.setComponentPopupMenu(submenuTabla);
         jScrollPane2.setViewportView(JTDatos);
 
         jptabla.add(jScrollPane2, java.awt.BorderLayout.CENTER);
@@ -312,7 +332,11 @@ public class viewInventario extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JComboBox JCondicion;
+    public javax.swing.JComboBox<String> JCrows;
     public javax.swing.JLabel JLfilas;
+    public javax.swing.JMenuItem JMEliminar;
+    public javax.swing.JMenuItem JMPropiedades;
+    public javax.swing.JMenuItem JModificar;
     public javax.swing.JTable JTDatos;
     public javax.swing.JButton bntmiltiple;
     public javax.swing.JButton btnMasArea;
@@ -321,7 +345,6 @@ public class viewInventario extends javax.swing.JPanel {
     public javax.swing.JToggleButton btnauto;
     public javax.swing.JButton btnguardar;
     public javax.swing.JButton btnlimpiar;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -350,6 +373,7 @@ public class viewInventario extends javax.swing.JPanel {
     private javax.swing.JLabel lbencargado;
     private javax.swing.JLabel lbmarca;
     private javax.swing.JLabel lbmodelo;
+    private javax.swing.JPopupMenu submenuTabla;
     public javax.swing.JTextField txtcodigo;
     public javax.swing.JTextField txtdescripcion;
     public javax.swing.JTextField txtdetalles;
