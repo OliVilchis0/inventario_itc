@@ -10,6 +10,7 @@ public class Inventario {
     private int id_area;
     private int id_encargado;
     private String detalles;
+    private String condicion;
 
     public String getId() {
         return id;
@@ -81,5 +82,22 @@ public class Inventario {
 
     public void setDetalles(String detalles) {
         this.detalles = detalles;
+    }
+    //devolver el tipo de condicion de acuerdo a el numero que se establece
+    public String getCondicion(){
+        switch(this.getE_fisico()){
+            case 1:
+                this.condicion = "BUENO";
+                break;
+            case 0: 
+                this.condicion = "REGULAR";
+                break;
+            case -1:
+                this.condicion = "MALO";
+                break;
+            default:
+                break;
+        }  
+        return condicion;
     }
 }

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
+import javax.swing.table.DefaultTableModel;
 
 public class InventarioCrud extends Conexion{
     //Ingresa un registro 
@@ -46,16 +47,17 @@ public class InventarioCrud extends Conexion{
         PreparedStatement ps = null;
         Connection con = getConexion();
         
-        String sql = "UPDATE invetario SET id_tipo=?,descripcion=?,marca=?,modelo=?,e_fisico=?,id_area=?,id_nombre=? WHERE id=?";
+        String sql = "UPDATE inventario SET id_tipo=?,descripcion=?,marca=?,modelo=?,e_fisico=?,id_area=?,id_nombre=?,detalle=? WHERE id=?";
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, mt.getId_tipo());
             ps.setString(2, mt.getDescripcion());
             ps.setString(3, mt.getMarca());
             ps.setString(4, mt.getModelo());
-            ps.setByte(6, mt.getE_fisico());
-            ps.setInt(7, mt.getId_area());
-            ps.setInt(8, mt.getId_encargado());
+            ps.setByte(5, mt.getE_fisico());
+            ps.setInt(6, mt.getId_area());
+            ps.setInt(7, mt.getId_encargado());
+            ps.setString(8, mt.getDetalles());
             ps.setString(9, mt.getId());
             ps.execute();
             return true;
@@ -162,8 +164,7 @@ public class InventarioCrud extends Conexion{
     //consultar todos los registros de la vista inventario
     public ArrayList<inventarioVista> consultaVista()
     {
-        ArrayList consulta = new ArrayList();
-        inventarioVista iVista;
+        ArrayList<inventarioVista> consulta = new ArrayList<inventarioVista>();
         try {
             PreparedStatement ps = null;
             ResultSet rs = null;
@@ -174,7 +175,7 @@ public class InventarioCrud extends Conexion{
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while(rs.next()){
-                iVista = new inventarioVista();
+                inventarioVista iVista = new inventarioVista();
                 iVista.setCodigo(rs.getString(1));
                 iVista.setCategory(rs.getString(2));
                 iVista.setDescripcion(rs.getString(3));
@@ -186,6 +187,9 @@ public class InventarioCrud extends Conexion{
                 iVista.setDetalle(rs.getString(9));
                 consulta.add(iVista);
             }
+            ps.close();
+            rs.close();
+            con.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

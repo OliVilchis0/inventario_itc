@@ -8,8 +8,10 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
@@ -71,6 +73,7 @@ public class ctrlInventario implements ActionListener,KeyListener,FocusListener 
         this.ventana.txtdetalles.addFocusListener(this);
         this.ventana.txtmarca.addFocusListener(this);
         this.ventana.txtmodelo.addFocusListener(this);
+        this.ventana.JTDatos.addKeyListener(this);
         //establecer el codigo por defecto en campo de texto dependiendo si es editable o no
         this.codigo(this.ventana.jccategoria.getSelectedItem().toString());
     }
@@ -97,21 +100,21 @@ public class ctrlInventario implements ActionListener,KeyListener,FocusListener 
         modelo.addColumn("Area");
         modelo.addColumn("Encargado");
         modelo.addColumn("Detalles");
-        Object[] columna = new Object[9];
-        //Obtener al tamano de la lista 
-        int numRegistros = consul.consultaVista().size();
-        this.ventana.JLfilas.setText("Mostrando 10 registros de un total de "+modelo.getRowCount());
+        //Asociar el array del modelo 
+        ArrayList<inventarioVista> inventario = consul.consultaVista();
         //Recorrer la lista
         tInicio = System.currentTimeMillis();
-        for (int i = 0; i < numRegistros ; i++) {
-            columna[0] = consul.consultaVista().get(i).getCodigo();
-            columna[1] = consul.consultaVista().get(i).getCategory().toUpperCase();
-            columna[2] = consul.consultaVista().get(i).getDescripcion().toUpperCase();
-            columna[3] = consul.consultaVista().get(i).getMarca().toUpperCase();
-            columna[4] = consul.consultaVista().get(i).getModelo().toUpperCase();
+        for (inventarioVista iv : inventario) {
+            //Obtener al tamano de la lista 
+            Object columna[] = new Object[9];
+            columna[0] = iv.getCodigo();
+            columna[1] = iv.getCategory().toUpperCase();
+            columna[2] = iv.getDescripcion().toUpperCase();
+            columna[3] = iv.getMarca().toUpperCase();
+            columna[4] = iv.getModelo().toUpperCase();
             //Identificar el tipo de condicion
-            if (consul.consultaVista().get(i).getEstadoFisico() != -1) {
-                if (consul.consultaVista().get(i).getEstadoFisico() != 0) {
+            if (iv.getEstadoFisico() != -1) {
+                if (iv.getEstadoFisico() != 0) {
                     columna[5] = "Bueno".toUpperCase();
                 }else{
                     columna[5] = "Regular".toUpperCase();
@@ -119,15 +122,12 @@ public class ctrlInventario implements ActionListener,KeyListener,FocusListener 
             } else {
                 columna[5] = "Malo".toUpperCase();
             }
-            columna[6] = consul.consultaVista().get(i).getArea().toUpperCase();
-            columna[7] = consul.consultaVista().get(i).getEncargado().toUpperCase();
-            columna[8] = consul.consultaVista().get(i).getDetalle().toUpperCase();
+            columna[6] = iv.getArea().toUpperCase();
+            columna[7] = iv.getEncargado().toUpperCase();
+            columna[8] = iv.getDetalle().toUpperCase();
             modelo.addRow(columna);
         }
         this.ventana.JLfilas.setText("Mostrando un total de "+modelo.getRowCount()+" Registros");
-        /*tFin = System.currentTimeMillis();
-        tiempo = tFin - tInicio;
-        System.out.println("Duracion: "+tiempo);*/
     } 
     /* Método filtro*/
     private void filtro(String consulta, JTable jtableBuscar){
@@ -357,6 +357,8 @@ public class ctrlInventario implements ActionListener,KeyListener,FocusListener 
         }
         //Establecer la cantidad de filas de la tabla de acuerdo al item seleccionado del combobox
         if (e.getSource() ==  this.ventana.JCrows) {
+            //Actualizar la tabla
+            this.tabla(this.ventana.JTDatos);
             //Obtener la cantidad de filas que se desea ver
             int numRows = Integer.parseInt(this.ventana.JCrows.getSelectedItem().toString());
             //Obtener el total de filas de la tabla
@@ -372,7 +374,6 @@ public class ctrlInventario implements ActionListener,KeyListener,FocusListener 
         if (e.getSource() == this.ventana.JMEliminar) {
             //Obtener el numero de filas seleccionadas
             int[] fila = this.ventana.JTDatos.getSelectedRows();
-            System.out.println("filas: "+fila.length+"\n"+Arrays.toString(fila));
             //establecer un array de cadenas para los codigos
             String[] codigo; 
             //Instanciar el modelo inventario
@@ -405,28 +406,25 @@ public class ctrlInventario implements ActionListener,KeyListener,FocusListener 
                     //Recorrer el array con FOR para establecer los codigos en modelo inventario
                     for (int i = 0; i < codigo.length; i++) {
                         codigo[i] = (String) this.ventana.JTDatos.getValueAt(fila[i], 0);
-                        //inv.setId(codigo[i]);
-                        /*if (consul.Eliminar(inv)) {
+                        inv.setId(codigo[i]);
+                        if (consul.Eliminar(inv)) {
                             guardado = true;
-                            this.modelo.removeRow(fila[i]);
+                            //this.modelo.removeRow(fila[i]);
                         }else{
                             guardado = false;
-                        }*/
+                        }
                     }
-                    System.out.println(Arrays.toString(codigo));
                     //Lanzar mensaje si todos los registros de guardaron
                     if (guardado) {
-                        JOptionPane.showMessageDialog(null, "Registro borrado");
+                        JOptionPane.showMessageDialog(null, "Registros borrados");
                     }else{
                         JOptionPane.showMessageDialog(null, "Error al eliminar");
                     }
                     
                 }
             }else{
-                JOptionPane.showMessageDialog(null, "SEleccione una fila");
+                JOptionPane.showMessageDialog(null, "Debes Seleccionar una fila","Aviso",JOptionPane.ERROR_MESSAGE);
             }
-            /*int []fila = this.ventana.JTDatos.getSelectedRows();
-            JOptionPane.showMessageDialog(null, "Filas: "+Arrays.toString(fila));*/
         }
     }
     //Metodos Sobeescritos de KeyListener
@@ -483,7 +481,47 @@ public class ctrlInventario implements ActionListener,KeyListener,FocusListener 
     }
     @Override
     public void keyReleased(KeyEvent e) {
-        
+        //Saber si el usuario presiono la tecla enter en una selda de la tabla
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            try {
+                //Obtener la fila
+                int fila = this.ventana.JTDatos.getSelectedRow();
+                //Obtener valores del registro a midificar
+                String codigo = (String) this.ventana.JTDatos.getValueAt(fila, 0);
+                String categoria = (String) this.ventana.JTDatos.getValueAt(fila, 1);
+                String descripcion = (String) this.ventana.JTDatos.getValueAt(fila, 2);
+                String marca = (String) this.ventana.JTDatos.getValueAt(fila, 3);
+                String modelo = (String) this.ventana.JTDatos.getValueAt(fila, 4);
+                String condicion = (String) this.ventana.JTDatos.getValueAt(fila, 5);
+                String area = (String) this.ventana.JTDatos.getValueAt(fila, 6);
+                String encargado = (String) this.ventana.JTDatos.getValueAt(fila, 7);
+                String detalles = (String) this.ventana.JTDatos.getValueAt(fila, 8);
+                //una ves obtenido los datos de la tabla. Obtendremos el id de Categoria,condicion,area,encargado
+                int idCategoria = this.getCetegory(categoria);
+                byte numCondicion = this.getCondicion(condicion);
+                int idArea = this.getIdArea(area);
+                int idEncargado = this.getIdEncar(encargado);
+                //Instanciar el modelo inventario y establecer los valores en el objeto
+                Inventario inv = new Inventario();
+                inv.setId(codigo);
+                inv.setId_tipo(idCategoria);
+                inv.setDescripcion(descripcion);
+                inv.setMarca(marca);
+                inv.setModelo(modelo);
+                inv.setE_fisico(numCondicion);
+                inv.setId_area(idArea);
+                inv.setId_encargado(idEncargado);
+                inv.setDetalles(detalles);
+                //modificar el registro con el modelo inventariocrud
+                if (consul.modificar(inv)) {
+                    JOptionPane.showMessageDialog(null, "Modificado");
+                }else{
+                    JOptionPane.showMessageDialog(null, "Ocurrio un error");
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, ":(\nError: "+ex.getMessage(),"Aviso",JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
     //Metodos sobreescritos de FocusLietener
     @Override
@@ -527,41 +565,6 @@ public class ctrlInventario implements ActionListener,KeyListener,FocusListener 
             }
         }
     }
-    
-    
-    //Metodo que activa un evento despues de presionar un boton determinado
-   // public void actionPerformed(ActionEvent e){
-        //listar todos los datos en una tabla
-        /*if (e.getSource() == ventana.btnlist) {
-            tabla(ventana.jtdatos);
-        }
-        //Modificar un registro de la db
-       /* if (e.getSource() == ventana.btnedit) {
-            /*if (ventana.txttipo.getText() == null || "".equals(ventana.txtarticulo.getText()) 
-                    || "".equals(ventana.txtmodelo.getText()) || ventana.txtcantidad.getText() == null ||
-                    ventana.txtcondicion.getText() == null) {
-                JOptionPane.showMessageDialog(null, "Debes ingresar todos los datos!!");
-            }else{*/
-             /* mt = new Inventario();
-               mt.setId_tipo(Integer.parseInt(ventana.txttipo.getText()));
-               mt.setArticulo(ventana.txtarticulo.getText());
-               mt.setModelo(ventana.txtmodelo.getText());
-               mt.setCantidad(Byte.parseByte(ventana.txtcantidad.getText()));
-               mt.setCondicion(Byte.parseByte(ventana.txtcondicion.getText()));
-
-               if (consul.registrar(mt)) {
-                   this.Limpiar();
-                   this.tabla(ventana.jtdatos);
-                   JOptionPane.showMessageDialog(null, "Registro Guardado");
-               }else{
-                   this.Limpiar();
-                   this.tabla(ventana.jtdatos);
-                   JOptionPane.showMessageDialog(null, "Error al intentar guardar el registro");
-               }   */
-            //}
-        //}
-        
-    //x }
     //Limpiar los datos de la caje de texto
     public void Limpiar(){
         this.ventana.txtcodigo.setText(null);
@@ -639,5 +642,21 @@ public class ctrlInventario implements ActionListener,KeyListener,FocusListener 
         String cadena = "ITC"+año+category.toUpperCase().charAt(0)+"0"+(num+1);
         //asignarlo a la caja de texto de inventario
         this.ventana.txtcodigo.setText(cadena);
+    }
+    //Obtener la condicion del articulo en formato de numero
+    public byte getCondicion(String condicion){
+        //Variable para almacenar el estado fisico
+        byte resultado = -1;
+        switch (condicion){
+            case "BUENO":
+                resultado = 1;
+                break;
+            case "REGULAR":
+                resultado =  0;
+                break;
+            default:
+                break;
+        }   
+        return resultado;
     }
 }

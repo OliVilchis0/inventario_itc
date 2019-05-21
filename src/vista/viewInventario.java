@@ -76,6 +76,10 @@ public class viewInventario extends javax.swing.JPanel {
         JTDatos = new javax.swing.JTable();
         jpinferior = new javax.swing.JPanel();
         JLfilas = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        btnexcel = new javax.swing.JButton();
+        btnpdf = new javax.swing.JButton();
+        btnrefrescar = new javax.swing.JButton();
 
         submenuTabla.setBackground(new java.awt.Color(52, 58, 64));
         submenuTabla.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
@@ -288,11 +292,40 @@ public class viewInventario extends javax.swing.JPanel {
         jptabla.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
         jpinferior.setBackground(new java.awt.Color(255, 255, 255));
-        jpinferior.setLayout(new javax.swing.BoxLayout(jpinferior, javax.swing.BoxLayout.LINE_AXIS));
+        jpinferior.setLayout(new java.awt.GridLayout(1, 0, 10, 0));
 
         JLfilas.setFont(new java.awt.Font("DejaVu Sans", 2, 12)); // NOI18N
         JLfilas.setText("Mostrando 1 a 10 registros de 78");
         jpinferior.add(JLfilas);
+        jpinferior.add(jLabel1);
+
+        btnexcel.setBackground(new java.awt.Color(52, 58, 64));
+        btnexcel.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        btnexcel.setForeground(new java.awt.Color(255, 255, 255));
+        btnexcel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/excel.png"))); // NOI18N
+        btnexcel.setText("Excel");
+        btnexcel.setBorderPainted(false);
+        btnexcel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnexcel.setFocusPainted(false);
+        jpinferior.add(btnexcel);
+
+        btnpdf.setBackground(new java.awt.Color(52, 58, 64));
+        btnpdf.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        btnpdf.setForeground(new java.awt.Color(255, 255, 255));
+        btnpdf.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pdf.png"))); // NOI18N
+        btnpdf.setText("PDF");
+        btnpdf.setBorderPainted(false);
+        btnpdf.setFocusPainted(false);
+        jpinferior.add(btnpdf);
+
+        btnrefrescar.setBackground(new java.awt.Color(52, 58, 64));
+        btnrefrescar.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        btnrefrescar.setForeground(new java.awt.Color(255, 255, 255));
+        btnrefrescar.setText("Refrescar");
+        btnrefrescar.setBorderPainted(false);
+        btnrefrescar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnrefrescar.setFocusPainted(false);
+        jpinferior.add(btnrefrescar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -301,14 +334,14 @@ public class viewInventario extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jpbuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1158, Short.MAX_VALUE)
+                    .addComponent(jpbuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jptabla, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jpinferior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jpinsetar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jpinsetar, javax.swing.GroupLayout.DEFAULT_SIZE, 1118, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         layout.setVerticalGroup(
@@ -343,8 +376,12 @@ public class viewInventario extends javax.swing.JPanel {
     public javax.swing.JButton btnMasCateg;
     public javax.swing.JButton btnMasEcgd;
     public javax.swing.JToggleButton btnauto;
+    private javax.swing.JButton btnexcel;
     public javax.swing.JButton btnguardar;
     public javax.swing.JButton btnlimpiar;
+    private javax.swing.JButton btnpdf;
+    private javax.swing.JButton btnrefrescar;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
