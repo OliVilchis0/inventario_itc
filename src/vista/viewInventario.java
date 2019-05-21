@@ -5,6 +5,14 @@
  */
 package vista;
 
+import exportarjtableexcel.Exportar;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 /**
  *
  * @author oliver-1
@@ -41,18 +49,18 @@ public class viewInventario extends javax.swing.JPanel {
         btnguardar = new javax.swing.JButton();
         lbcategoria = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jccategoria = new javax.swing.JComboBox<String>();
+        jccategoria = new javax.swing.JComboBox<>();
         btnMasCateg = new javax.swing.JButton();
         lbarea = new javax.swing.JLabel();
         jparea = new javax.swing.JPanel();
-        jcarea = new javax.swing.JComboBox<String>();
+        jcarea = new javax.swing.JComboBox<>();
         btnMasArea = new javax.swing.JButton();
         btnlimpiar = new javax.swing.JButton();
         lbdescripcion = new javax.swing.JLabel();
         txtdescripcion = new javax.swing.JTextField();
         lbencargado = new javax.swing.JLabel();
         jpencergado = new javax.swing.JPanel();
-        jcencargado = new javax.swing.JComboBox<String>();
+        jcencargado = new javax.swing.JComboBox<>();
         btnMasEcgd = new javax.swing.JButton();
         bntmiltiple = new javax.swing.JButton();
         lbmarca = new javax.swing.JLabel();
@@ -66,7 +74,7 @@ public class viewInventario extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jpbuscar = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        JCrows = new javax.swing.JComboBox<String>();
+        JCrows = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -99,7 +107,7 @@ public class viewInventario extends javax.swing.JPanel {
         setBackground(java.awt.Color.white);
 
         jpinsetar.setBackground(java.awt.Color.white);
-        jpinsetar.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Nuevo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
+        jpinsetar.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Nuevo"));
         jpinsetar.setLayout(new java.awt.GridLayout(5, 2, 10, 3));
 
         lbcodigo.setBackground(java.awt.Color.white);
@@ -128,7 +136,6 @@ public class viewInventario extends javax.swing.JPanel {
         lbcondicion.setAlignmentX(0.5F);
         jpinsetar.add(lbcondicion);
 
-        JCondicion.setBackground(new java.awt.Color(255, 255, 255));
         JCondicion.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         JCondicion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Bueno", "Regular  ", "Malo", " " }));
         jpinsetar.add(JCondicion);
@@ -151,7 +158,6 @@ public class viewInventario extends javax.swing.JPanel {
         jPanel1.setMaximumSize(new java.awt.Dimension(10, 10));
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
 
-        jccategoria.setBackground(new java.awt.Color(255, 255, 255));
         jccategoria.setFont(new java.awt.Font("DejaVu Sans", 2, 12)); // NOI18N
         jPanel1.add(jccategoria);
 
@@ -172,7 +178,6 @@ public class viewInventario extends javax.swing.JPanel {
         jparea.setPreferredSize(new java.awt.Dimension(10, 20));
         jparea.setLayout(new javax.swing.BoxLayout(jparea, javax.swing.BoxLayout.LINE_AXIS));
 
-        jcarea.setBackground(new java.awt.Color(255, 255, 255));
         jcarea.setFont(new java.awt.Font("DejaVu Sans", 2, 12)); // NOI18N
         jcarea.setPreferredSize(new java.awt.Dimension(54, 25));
         jparea.add(jcarea);
@@ -207,7 +212,6 @@ public class viewInventario extends javax.swing.JPanel {
         jpencergado.setBackground(new java.awt.Color(255, 255, 255));
         jpencergado.setLayout(new javax.swing.BoxLayout(jpencergado, javax.swing.BoxLayout.LINE_AXIS));
 
-        jcencargado.setBackground(new java.awt.Color(255, 255, 255));
         jcencargado.setFont(new java.awt.Font("DejaVu Sans", 2, 12)); // NOI18N
         jpencergado.add(jcencargado);
 
@@ -257,9 +261,8 @@ public class viewInventario extends javax.swing.JPanel {
         jLabel7.setText("Mostrar");
         jpbuscar.add(jLabel7);
 
-        JCrows.setBackground(new java.awt.Color(255, 255, 255));
         JCrows.setFont(new java.awt.Font("DejaVu Sans", 2, 12)); // NOI18N
-        JCrows.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10", "25", "50", "100" }));
+        JCrows.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "10", "25", "50", "100" }));
         jpbuscar.add(JCrows);
 
         jLabel8.setFont(new java.awt.Font("DejaVu Sans", 2, 12)); // NOI18N
@@ -307,6 +310,11 @@ public class viewInventario extends javax.swing.JPanel {
         btnexcel.setBorderPainted(false);
         btnexcel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnexcel.setFocusPainted(false);
+        btnexcel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnexcelActionPerformed(evt);
+            }
+        });
         jpinferior.add(btnexcel);
 
         btnpdf.setBackground(new java.awt.Color(52, 58, 64));
@@ -361,6 +369,36 @@ public class viewInventario extends javax.swing.JPanel {
                     .addContainerGap(358, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnexcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnexcelActionPerformed
+        // TODO add your handling code here: Excel
+        
+        if (this.JTDatos.getRowCount() > 0) {
+            JFileChooser chooser = new JFileChooser();
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos de excel", "xls");
+            chooser.setFileFilter(filter);
+            chooser.setDialogTitle("Guardar archivo");
+            chooser.setAcceptAllFileFilterUsed(false);
+        if (chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+            List tb = new ArrayList();
+            List nom = new ArrayList();
+            tb.add(this.JTDatos);
+            nom.add("Compras por factura");
+            String file = chooser.getSelectedFile().toString().concat(".xls");
+            //Aqui se ejecuta el metodo
+        try {
+            Exportar e = new Exportar(new File(file), tb, nom);
+        if (e.export()) {
+            JOptionPane.showMessageDialog(null, "Los datos fueron exportados a excel en el directorio seleccionado", "Mensaje de Informacion", JOptionPane.INFORMATION_MESSAGE);
+     }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Hubo un error " + e.getMessage(), " Error", JOptionPane.ERROR_MESSAGE);
+        }
+        }
+        }else{
+        JOptionPane.showMessageDialog(this, "No hay datos para exportar","Mensaje de error",JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnexcelActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
