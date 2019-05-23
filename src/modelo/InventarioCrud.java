@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class InventarioCrud extends Conexion{
@@ -288,7 +289,7 @@ public class InventarioCrud extends Conexion{
             ResultSet rs = null;
             Connection con = getConexion();
         
-            String sql = " SELECT count(*) AS total FROM inventario WHERE id_tipo="+id;
+            String sql = "SELECT max(cast(substring(id,9) as int)) AS id FROM inventario WHERE id_tipo="+id+" ORDER BY id";
              
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -297,7 +298,7 @@ public class InventarioCrud extends Conexion{
                 return rs.getInt(1);
             }
         } catch (Exception e) {
-            System.out.println("Error");
+            JOptionPane.showMessageDialog(null, e.getMessage(),"Aviso",JOptionPane.ERROR_MESSAGE);
         }
         return 0;
     }

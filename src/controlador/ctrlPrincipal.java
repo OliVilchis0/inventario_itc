@@ -51,7 +51,9 @@ public class ctrlPrincipal implements ActionListener {
         //Metodos de la clase(Graficas)
         this.TotalRow();
         this.grafica_Barras();
-        this.grafica_Pastel();
+        if (ic.numFilas() != 0) {
+            this.grafica_Pastel();
+        }
         //Activar botones para lanzar un evento
         this.vp.btnAreas.addActionListener(this);
         this.vp.btnCategory.addActionListener(this);

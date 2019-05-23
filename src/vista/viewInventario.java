@@ -48,19 +48,27 @@ public class viewInventario extends javax.swing.JPanel {
         jcarea = new javax.swing.JComboBox<String>();
         btnMasArea = new javax.swing.JButton();
         btnlimpiar = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
         lbdescripcion = new javax.swing.JLabel();
+        lbdescripcion1 = new javax.swing.JLabel();
         txtdescripcion = new javax.swing.JTextField();
         lbencargado = new javax.swing.JLabel();
         jpencergado = new javax.swing.JPanel();
         jcencargado = new javax.swing.JComboBox<String>();
         btnMasEcgd = new javax.swing.JButton();
         bntmiltiple = new javax.swing.JButton();
-        lbmarca = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        LbMarca = new javax.swing.JLabel();
         txtmarca = new javax.swing.JTextField();
-        lbdetalles = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        LbDetalles = new javax.swing.JLabel();
         txtdetalles = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        lbmodelo = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        LbModelo = new javax.swing.JLabel();
         txtmodelo = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -79,7 +87,6 @@ public class viewInventario extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         btnexcel = new javax.swing.JButton();
         btnpdf = new javax.swing.JButton();
-        btnrefrescar = new javax.swing.JButton();
 
         submenuTabla.setBackground(new java.awt.Color(52, 58, 64));
         submenuTabla.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
@@ -191,11 +198,21 @@ public class viewInventario extends javax.swing.JPanel {
         btnlimpiar.setBorderPainted(false);
         jpinsetar.add(btnlimpiar);
 
-        lbdescripcion.setFont(new java.awt.Font("DejaVu Sans", 2, 12)); // NOI18N
-        lbdescripcion.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(new java.awt.GridLayout());
+
+        lbdescripcion.setBackground(new java.awt.Color(255, 255, 255));
+        lbdescripcion.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         lbdescripcion.setText("Descripcion");
-        lbdescripcion.setAlignmentX(0.5F);
-        jpinsetar.add(lbdescripcion);
+        jPanel2.add(lbdescripcion);
+
+        lbdescripcion1.setBackground(new java.awt.Color(255, 255, 255));
+        lbdescripcion1.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        lbdescripcion1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lbdescripcion1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        jPanel2.add(lbdescripcion1);
+
+        jpinsetar.add(jPanel2);
         jpinsetar.add(txtdescripcion);
 
         lbencargado.setFont(new java.awt.Font("DejaVu Sans", 2, 12)); // NOI18N
@@ -224,26 +241,47 @@ public class viewInventario extends javax.swing.JPanel {
         bntmiltiple.setText("                  Multiple");
         jpinsetar.add(bntmiltiple);
 
-        lbmarca.setFont(new java.awt.Font("DejaVu Sans", 2, 12)); // NOI18N
-        lbmarca.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lbmarca.setText("Marca");
-        lbmarca.setAlignmentX(0.5F);
-        jpinsetar.add(lbmarca);
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setLayout(new java.awt.GridLayout());
+
+        jLabel9.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        jLabel9.setText("Marca");
+        jPanel3.add(jLabel9);
+
+        LbMarca.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        LbMarca.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jPanel3.add(LbMarca);
+
+        jpinsetar.add(jPanel3);
         jpinsetar.add(txtmarca);
 
-        lbdetalles.setFont(new java.awt.Font("DejaVu Sans", 2, 12)); // NOI18N
-        lbdetalles.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lbdetalles.setText("Detalles");
-        lbdetalles.setAlignmentX(0.5F);
-        jpinsetar.add(lbdetalles);
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setLayout(new java.awt.GridLayout());
+
+        jLabel11.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        jLabel11.setText("Detalles");
+        jPanel5.add(jLabel11);
+
+        LbDetalles.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        LbDetalles.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jPanel5.add(LbDetalles);
+
+        jpinsetar.add(jPanel5);
         jpinsetar.add(txtdetalles);
         jpinsetar.add(jLabel6);
 
-        lbmodelo.setFont(new java.awt.Font("DejaVu Sans", 2, 12)); // NOI18N
-        lbmodelo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lbmodelo.setText("Modelo");
-        lbmodelo.setAlignmentX(0.5F);
-        jpinsetar.add(lbmodelo);
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setLayout(new java.awt.GridLayout());
+
+        jLabel10.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        jLabel10.setText("Modelo");
+        jPanel4.add(jLabel10);
+
+        LbModelo.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        LbModelo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jPanel4.add(LbModelo);
+
+        jpinsetar.add(jPanel4);
         jpinsetar.add(txtmodelo);
 
         jLabel4.setAlignmentX(0.5F);
@@ -259,7 +297,6 @@ public class viewInventario extends javax.swing.JPanel {
 
         JCrows.setBackground(new java.awt.Color(255, 255, 255));
         JCrows.setFont(new java.awt.Font("DejaVu Sans", 2, 12)); // NOI18N
-        JCrows.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10", "25", "50", "100" }));
         jpbuscar.add(JCrows);
 
         jLabel8.setFont(new java.awt.Font("DejaVu Sans", 2, 12)); // NOI18N
@@ -292,7 +329,7 @@ public class viewInventario extends javax.swing.JPanel {
         jptabla.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
         jpinferior.setBackground(new java.awt.Color(255, 255, 255));
-        jpinferior.setLayout(new java.awt.GridLayout(1, 0, 10, 0));
+        jpinferior.setLayout(new java.awt.GridLayout(1, 6, 10, 0));
 
         JLfilas.setFont(new java.awt.Font("DejaVu Sans", 2, 12)); // NOI18N
         JLfilas.setText("Mostrando 1 a 10 registros de 78");
@@ -317,15 +354,6 @@ public class viewInventario extends javax.swing.JPanel {
         btnpdf.setBorderPainted(false);
         btnpdf.setFocusPainted(false);
         jpinferior.add(btnpdf);
-
-        btnrefrescar.setBackground(new java.awt.Color(52, 58, 64));
-        btnrefrescar.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
-        btnrefrescar.setForeground(new java.awt.Color(255, 255, 255));
-        btnrefrescar.setText("Refrescar");
-        btnrefrescar.setBorderPainted(false);
-        btnrefrescar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnrefrescar.setFocusPainted(false);
-        jpinferior.add(btnrefrescar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -352,8 +380,8 @@ public class viewInventario extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jptabla, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jpinferior, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jpinferior, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -371,6 +399,9 @@ public class viewInventario extends javax.swing.JPanel {
     public javax.swing.JMenuItem JMPropiedades;
     public javax.swing.JMenuItem JModificar;
     public javax.swing.JTable JTDatos;
+    public javax.swing.JLabel LbDetalles;
+    public javax.swing.JLabel LbMarca;
+    public javax.swing.JLabel LbModelo;
     public javax.swing.JButton bntmiltiple;
     public javax.swing.JButton btnMasArea;
     public javax.swing.JButton btnMasCateg;
@@ -380,8 +411,9 @@ public class viewInventario extends javax.swing.JPanel {
     public javax.swing.JButton btnguardar;
     public javax.swing.JButton btnlimpiar;
     private javax.swing.JButton btnpdf;
-    private javax.swing.JButton btnrefrescar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -389,7 +421,12 @@ public class viewInventario extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane2;
     public javax.swing.JComboBox<String> jcarea;
     public javax.swing.JComboBox<String> jccategoria;
@@ -406,10 +443,8 @@ public class viewInventario extends javax.swing.JPanel {
     private javax.swing.JLabel lbcodigo;
     private javax.swing.JLabel lbcondicion;
     private javax.swing.JLabel lbdescripcion;
-    private javax.swing.JLabel lbdetalles;
+    public javax.swing.JLabel lbdescripcion1;
     private javax.swing.JLabel lbencargado;
-    private javax.swing.JLabel lbmarca;
-    private javax.swing.JLabel lbmodelo;
     private javax.swing.JPopupMenu submenuTabla;
     public javax.swing.JTextField txtcodigo;
     public javax.swing.JTextField txtdescripcion;

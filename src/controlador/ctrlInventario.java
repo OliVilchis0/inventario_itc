@@ -1,17 +1,22 @@
 package controlador;
 
+//rojo #dc3545
+//verde #28a745
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.event.MouseListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.concurrent.TimeUnit;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
@@ -22,18 +27,17 @@ import javax.swing.table.TableRowSorter;
 import modelo.*;
 import vista.viewAreaAD;
 import vista.viewCateAD;
+import vista.viewDatos;
 import vista.viewEncarAD;
 import vista.viewInventario;
 
-public class ctrlInventario implements ActionListener,KeyListener,FocusListener {
+public class ctrlInventario implements ActionListener,KeyListener,FocusListener,MouseListener {
     private InventarioCrud consul;
     private viewInventario ventana;
     private TipoCrud tipoC;
     private AreaCrud areaC;
     private EncargadoCrud encargadoC;
     private DefaultTableModel modelo;
-    //tiempo
-    long tInicio, tFin, tiempo;
 
     public ctrlInventario(viewInventario ventana,InventarioCrud consul) {
         this.ventana = ventana;
@@ -74,6 +78,8 @@ public class ctrlInventario implements ActionListener,KeyListener,FocusListener 
         this.ventana.txtmarca.addFocusListener(this);
         this.ventana.txtmodelo.addFocusListener(this);
         this.ventana.JTDatos.addKeyListener(this);
+        //Activar evento para MouseListener
+        this.ventana.JTDatos.addMouseListener(this);
         //establecer el codigo por defecto en campo de texto dependiendo si es editable o no
         this.codigo(this.ventana.jccategoria.getSelectedItem().toString());
     }
@@ -86,7 +92,7 @@ public class ctrlInventario implements ActionListener,KeyListener,FocusListener 
         THeader.setForeground(Color.white);
         THeader.setFont(new Font("DejaVu Sans",Font.ITALIC,14));
         THeader.setBorder(UIManager.getBorder("TableHeader.cellBorder"));
-        
+        this.ventana.JTDatos.setRowHeight(25);
         //tabla
         this.modelo = new DefaultTableModel();
         tabla.setModel(modelo);
@@ -103,7 +109,6 @@ public class ctrlInventario implements ActionListener,KeyListener,FocusListener 
         //Asociar el array del modelo 
         ArrayList<inventarioVista> inventario = consul.consultaVista();
         //Recorrer la lista
-        tInicio = System.currentTimeMillis();
         for (inventarioVista iv : inventario) {
             //Obtener al tamano de la lista 
             Object columna[] = new Object[9];
@@ -128,7 +133,7 @@ public class ctrlInventario implements ActionListener,KeyListener,FocusListener 
             modelo.addRow(columna);
         }
         this.ventana.JLfilas.setText("Mostrando un total de "+modelo.getRowCount()+" Registros");
-    } 
+    }
     /* Método filtro*/
     private void filtro(String consulta, JTable jtableBuscar){
             modelo = (DefaultTableModel) jtableBuscar.getModel();
@@ -136,7 +141,6 @@ public class ctrlInventario implements ActionListener,KeyListener,FocusListener 
             jtableBuscar.setRowSorter(tr);
             tr.setRowFilter(RowFilter.regexFilter(consulta));
     }
-
     //Propiedades de jcombo
     public void jcombo(){
         //Propiedades de Jcombox categoria
@@ -170,6 +174,12 @@ public class ctrlInventario implements ActionListener,KeyListener,FocusListener 
             this.ventana.jcencargado.addItem(encargadoC.consulta().get(i).getNombre()+" "+encargadoC.consulta().get(i).getAp1()
             +" "+encargadoC.consulta().get(i).getAp2());
         }
+        //establecer valores de JCobobox para filtras datos de la tabla
+        this.ventana.JCrows.addItem("Todo");
+        this.ventana.JCrows.addItem("10");
+        this.ventana.JCrows.addItem("25");
+        this.ventana.JCrows.addItem("50");
+        this.ventana.JCrows.addItem("100");
     }
     //Metodo para lanzar un evento dependiendo el boton que se oprima
     @Override
@@ -181,10 +191,15 @@ public class ctrlInventario implements ActionListener,KeyListener,FocusListener 
             boolean guardado = false;
             String codigos[] = null;
             //Lanzar la ventana repetidas veces si el usuario ingresa una letra en la caja de texto
-            do {                
-                //Capturar el error 
+            while(!error) {  
+                String datos = JOptionPane.showInputDialog("Total de registros");
+                if (datos == null) {
+                    break;
+                }
+                //manejar si ahi error
                 try {
-                    int dato = Integer.parseInt(JOptionPane.showInputDialog("Total de registros"));
+                    int dato = Integer.parseInt(datos);
+                
                     //areglo para almacenar los codigos generados
                     codigos = new String[dato];
                     //obtener los datos 
@@ -196,6 +211,7 @@ public class ctrlInventario implements ActionListener,KeyListener,FocusListener 
                     paso 2. obtener el numero total con el metodo getObjetos de la clase modelo*/
                     String categoria = this.ventana.jccategoria.getSelectedItem().toString();
                     int idCategory = this.getCetegory(categoria);
+                    int num = this.consul.getObjetos(idCategory);                        
                     byte condicion = 1;
                     if (this.ventana.JCondicion.getSelectedIndex() != 0) {
                         if (this.ventana.JCondicion.getSelectedIndex() != 1) {
@@ -213,9 +229,9 @@ public class ctrlInventario implements ActionListener,KeyListener,FocusListener 
                     String deralles = this.ventana.txtdetalles.getText();
                     for (int i = 0; i < dato; i++) {
                         Inventario mt = new Inventario();
-                        int num = this.consul.getObjetos(idCategory);
+                        num ++;
                         //Establecer la cadena de codigo
-                        String cadena = "ITC"+año+categoria.toUpperCase().charAt(0)+"0"+(num+1);
+                        String cadena = "ITC"+año+categoria.toUpperCase().charAt(0)+num;
                         mt.setId(cadena);
                         mt.setE_fisico(condicion);
                         mt.setId_tipo(category);
@@ -230,12 +246,11 @@ public class ctrlInventario implements ActionListener,KeyListener,FocusListener 
                             codigos[i] = cadena;
                         }
                     }
-                    error = false;
-                } catch (Exception ea) {
                     error = true;
-                    System.out.println(ea.getMessage());
+                } catch (Exception ea) {
+                    error = false;
                 }
-            } while (error);
+            };
             //Limpiar y actualizar la tabla una ves los registros multiples se inserten correctamente
             if (guardado) {
                 this.Limpiar();
@@ -359,16 +374,20 @@ public class ctrlInventario implements ActionListener,KeyListener,FocusListener 
         if (e.getSource() ==  this.ventana.JCrows) {
             //Actualizar la tabla
             this.tabla(this.ventana.JTDatos);
-            //Obtener la cantidad de filas que se desea ver
-            int numRows = Integer.parseInt(this.ventana.JCrows.getSelectedItem().toString());
-            //Obtener el total de filas de la tabla
-            int numTotal = this.modelo.getRowCount();
-            //Restar las filas total con las que se desea ver
-            int totalRows = numTotal - numRows;
-            for (int i = 0; i <= totalRows; i++) {
-                this.modelo.removeRow(this.modelo.getRowCount() -1);
+            try {
+                //Obtener la cantidad de filas que se desea ver
+                int numRows = Integer.parseInt(this.ventana.JCrows.getSelectedItem().toString());
+                //Obtener el total de filas de la tabla
+                int numTotal = this.modelo.getRowCount();
+                //Restar las filas total con las que se desea ver
+                int totalRows = numTotal - numRows;
+                for (int i = 0; i <= totalRows; i++) {
+                    this.modelo.removeRow(this.modelo.getRowCount() -1);
+                }
+                this.ventana.JLfilas.setText("Mostrando "+numRows+" registros filtrado de un total de "+this.consul.numFilas());
+            } catch (Exception ea) {
+                
             }
-            this.ventana.JLfilas.setText("Mostrando "+numRows+" registros filtrado de un total de "+this.consul.numFilas());
         }
         //Al presionar el boton eliminar del popupmenu ubicado en la tabla
         if (e.getSource() == this.ventana.JMEliminar) {
@@ -390,8 +409,13 @@ public class ctrlInventario implements ActionListener,KeyListener,FocusListener 
                     inv.setId(codigo[0]);
                     //Eliminar el registro
                     if (consul.Eliminar(inv)) {
+                        //Actualizar la etiqueta donde muestra el total de registros
+                        this.ventana.JLfilas.setText("Mostrando un total de "+modelo.getRowCount()+" Registros");
+                        //Actualizar el codigo
+                        this.codigo(this.ventana.jccategoria.getSelectedItem().toString());
+                        //Refrescar la tabla
+                        this.tabla(this.ventana.JTDatos);
                         JOptionPane.showMessageDialog(null, "Registro borrado");
-                        this.modelo.removeRow(fila[0]);
                     }else{
                         JOptionPane.showMessageDialog(null, "Imposible borrar este registro");
                     }
@@ -409,13 +433,18 @@ public class ctrlInventario implements ActionListener,KeyListener,FocusListener 
                         inv.setId(codigo[i]);
                         if (consul.Eliminar(inv)) {
                             guardado = true;
-                            //this.modelo.removeRow(fila[i]);
                         }else{
                             guardado = false;
                         }
                     }
                     //Lanzar mensaje si todos los registros de guardaron
                     if (guardado) {
+                        //Actualizar la etiqueta donde muestra el total de registros
+                        this.ventana.JLfilas.setText("Mostrando un total de "+modelo.getRowCount()+" Registros");
+                        //Actualizar el codigo
+                        this.codigo(this.ventana.jccategoria.getSelectedItem().toString());
+                        //Refrescar la tabla
+                        this.tabla(this.ventana.JTDatos);
                         JOptionPane.showMessageDialog(null, "Registros borrados");
                     }else{
                         JOptionPane.showMessageDialog(null, "Error al eliminar");
@@ -430,9 +459,18 @@ public class ctrlInventario implements ActionListener,KeyListener,FocusListener 
     //Metodos Sobeescritos de KeyListener
     @Override
     public void keyTyped(KeyEvent e) {
-       
+       //validar el campo descripcion para que no se escriban numero
+        if (e.getSource() == this.ventana.txtdescripcion) {
+            char tecla = e.getKeyChar();
+            if ((tecla >= '0') && (tecla <= '9')) {
+                e.consume();
+                this.ventana.lbdescripcion1.setForeground(Color.red);
+                this.ventana.lbdescripcion1.setText("No Numeros **");
+            }else{
+                this.ventana.lbdescripcion1.setText("");
+            }
+        }
     }
-
     @Override
     public void keyPressed(KeyEvent e) {
         //Filtrar una serie de resultados de la tabla al obtener la tecla insertada por el usuasio
@@ -519,7 +557,7 @@ public class ctrlInventario implements ActionListener,KeyListener,FocusListener 
                     JOptionPane.showMessageDialog(null, "Ocurrio un error");
                 }
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, ":(\nError: "+ex.getMessage(),"Aviso",JOptionPane.ERROR_MESSAGE);
+                //JOptionPane.showMessageDialog(null, ":(\nError: "+ex.getMessage(),"Aviso",JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -532,38 +570,108 @@ public class ctrlInventario implements ActionListener,KeyListener,FocusListener 
         }
         if (fe.getComponent() == this.ventana.txtdetalles) {
             this.ventana.txtdetalles.setBackground(Color.white);
+            this.ventana.LbDetalles.setText("");
         }
         if (fe.getComponent() == this.ventana.txtmarca) {
             this.ventana.txtmarca.setBackground(Color.white);
+            this.ventana.LbMarca.setText("");
         }
         if (fe.getComponent() == this.ventana.txtmodelo) {
             this.ventana.txtmodelo.setBackground(Color.white);
+            this.ventana.LbModelo.setText("");
         }
     }
-
     @Override
     public void focusLost(FocusEvent fe) {
         //pintar de color amarillo si el cuadro de texto no camputo caracteres
         if (fe.getComponent() == this.ventana.txtdescripcion) {
             if (this.ventana.txtdescripcion.getText().equals("")) {
                 this.ventana.txtdescripcion.setBackground(Color.yellow);
+                this.ventana.lbdescripcion1.setForeground(Color.red);
+                this.ventana.lbdescripcion1.setText("Obligatorio **");
             }
         }
         if (fe.getComponent() == this.ventana.txtdetalles) {
             if (this.ventana.txtdetalles.getText().equals("")) {
                 this.ventana.txtdetalles.setBackground(Color.yellow);
+                this.ventana.LbDetalles.setForeground(Color.red);
+                this.ventana.LbDetalles.setText("Obligatorio **");
             }
         }
         if (fe.getComponent() == this.ventana.txtmarca) {
             if (this.ventana.txtmarca.getText().equals("")) {
                 this.ventana.txtmarca.setBackground(Color.yellow);
+                this.ventana.LbMarca.setForeground(Color.red);
+                this.ventana.LbMarca.setText("Obligatorio **");
             }
         }
         if (fe.getComponent() == this.ventana.txtmodelo) {
             if (this.ventana.txtmodelo.getText().equals("")) {
                 this.ventana.txtmodelo.setBackground(Color.yellow);
+                this.ventana.LbModelo.setForeground(Color.red);
+                this.ventana.LbModelo.setText("Obligatorio **");
             }
         }
+    }
+    @Override
+    public void mouseClicked(MouseEvent me) {  
+        //obtener las coordenadas del raton para que se visualize el JDialog
+        Point punto = MouseInfo.getPointerInfo().getLocation();
+        int x;
+        int y;
+        //Preparar el JDialog
+        viewDatos ventana;
+        //Obtener la posicion de la fila
+        int fila = this.ventana.JTDatos.getSelectedRow();
+        //Obtener la posicion de la columna
+        int columna = this.ventana.JTDatos.getSelectedColumn();
+        //Obtener el Nombre de la columna
+        String nomColumna = this.ventana.JTDatos.getColumnName(columna).toUpperCase();
+        //this.ventana.JTDatos.setValueAt("funciona", fila, columna);
+        switch(nomColumna){
+            case "TIPO":
+                x = punto.x;
+                y = punto.y;
+                ventana = new viewDatos(null,true);
+                ventana.setLocation(y, y);
+                ventana.setVisible(true);
+                break;
+            case "CONDICION":
+                x = punto.x;
+                y = punto.y;
+                ventana = new viewDatos(null,true);
+                ventana.setLocation(y, y);
+                ventana.setVisible(true);
+                break;
+            case "AREA":
+                x = punto.x;
+                y = punto.y;
+                ventana = new viewDatos(null,true);
+                ventana.setLocation(y, y);
+                ventana.setVisible(true);
+                break;
+            case "ENCARGADO":
+                x = punto.x;
+                y = punto.y;
+                ventana = new viewDatos(null,true);
+                ventana.setLocation(y, y);
+                ventana.setVisible(true);
+                break;
+            default:
+                break;
+        }
+    }
+    @Override
+    public void mousePressed(MouseEvent me) {   
+    }
+    @Override
+    public void mouseReleased(MouseEvent me) {   
+    }
+    @Override
+    public void mouseEntered(MouseEvent me) {  
+    }
+    @Override
+    public void mouseExited(MouseEvent me) {   
     }
     //Limpiar los datos de la caje de texto
     public void Limpiar(){
@@ -630,6 +738,8 @@ public class ctrlInventario implements ActionListener,KeyListener,FocusListener 
     }
     //obtener elc codigo de inventario
     public void codigo(String category){
+        //establecer cadena de codigo
+        String cadena;
         //obtener el año
         Calendar cal = Calendar.getInstance();
         int año = cal.get(Calendar.YEAR);
@@ -637,9 +747,17 @@ public class ctrlInventario implements ActionListener,KeyListener,FocusListener 
         paso 1. obtener el id de la categoria a traves del metodo getCategory
         paso 2. obtener el numero total con el metodo getObjetos de la clase modelo*/
         int idCategory = this.getCetegory(category);
-        int num = this.consul.getObjetos(idCategory);
-        //Establecer la cadena de codigo
-        String cadena = "ITC"+año+category.toUpperCase().charAt(0)+"0"+(num+1);
+        int numero = this.consul.getObjetos(idCategory);
+        //verificar que existe registro
+        if (numero != 0) {
+            //Establecer la cadena de codigo
+            cadena = "ITC"+año+category.toUpperCase().charAt(0)+(numero+1);
+        }else{
+            //asignar el primer numero al codigo
+            numero = 1;
+            //Establecer la cadena de codigo
+            cadena = "ITC"+año+category.toUpperCase().charAt(0)+numero;
+        }
         //asignarlo a la caja de texto de inventario
         this.ventana.txtcodigo.setText(cadena);
     }
