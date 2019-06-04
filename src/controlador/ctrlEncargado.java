@@ -1,12 +1,12 @@
 package controlador;
 
-import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
@@ -14,6 +14,7 @@ import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableRowSorter;
+import modelo.Area;
 import modelo.Encargado;
 import modelo.EncargadoCrud;
 import vista.viewEncargado;
@@ -32,8 +33,11 @@ public class ctrlEncargado implements ActionListener,KeyListener{
         this.tabla(this.ve.JTabla);
         //Activar Boton para lanzar evento Keylistener
         this.ve.txtBuscar.addKeyListener(this);
+        this.ve.JTabla.addKeyListener(this);
         //Activar Boton para lanzar evento ActionListener
         this.ve.btnGuardar.addActionListener(this);
+        this.ve.jmEliminar.addActionListener(this);
+        this.ve.jCFilas.addActionListener(this);
     }
     //Lista todos los registros en una tabla
     public void tabla(JTable tabla){
@@ -43,6 +47,7 @@ public class ctrlEncargado implements ActionListener,KeyListener{
         THeader.setForeground(Color.white);
         THeader.setFont(new Font("DejaVu Sans",Font.ITALIC,14));
         THeader.setBorder(UIManager.getBorder("TableHeader.cellBorder"));
+        this.ve.JTabla.setRowHeight(25);
         //tabla
         modelo = new DefaultTableModel();
         tabla.setModel(modelo);
@@ -52,18 +57,19 @@ public class ctrlEncargado implements ActionListener,KeyListener{
         modelo.addColumn("Primer Apellido");
         modelo.addColumn("Segundo Apellido");
         modelo.addColumn("Cargo");
-        Object[] columna = new Object[5];
-        //Obtener al tamano de la lista 
-        int numRegistros = ec.consulta().size();
+        //Asosiar tabla con el modelo
+        ArrayList<Encargado> encargado = this.ec.consulta();
         //Recorrer la lista
-        for (int i = 0; i < numRegistros ; i++) {
-            columna[0] = ec.consulta().get(i).getId();
-            columna[1] = ec.consulta().get(i).getNombre().toUpperCase();
-            columna[2] = ec.consulta().get(i).getAp1().toUpperCase();
-            columna[3] = ec.consulta().get(i).getAp2().toUpperCase();
-            columna[4] = ec.consulta().get(i).getCargo().toUpperCase();
+        for (Encargado ecgd : encargado) {
+            Object columna[] = new Object[5];
+            columna[0] = ecgd.getId();
+            columna[1] = ecgd.getNombre();
+            columna[2] = ecgd.getAp1();
+            columna[3] = ecgd.getAp2();
+            columna[4] = ecgd.getCargo();
             modelo.addRow(columna);
         }
+        this.ve.lbFilas.setText("Mostrando un total de "+ec.numFilas()+" Registros");
     }
     //filtrar un registro de la tabla
     public void filtro(String consulta,JTable jtableBuscar){
@@ -74,6 +80,7 @@ public class ctrlEncargado implements ActionListener,KeyListener{
     }
     @Override
     public void actionPerformed(ActionEvent ae) {
+        //Guardar un registro
         if (ae.getSource() == this.ve.btnGuardar) {
             if (
                 this.ve.txtNombre.getText().equals("") ||
@@ -96,6 +103,87 @@ public class ctrlEncargado implements ActionListener,KeyListener{
                 }
             }
         }
+        //Al seleccionar la cantidad de filas que se desea ver a traves del jcombobox
+        if (ae.getSource() == this.ve.jCFilas) {
+            //Actualizar la tabla
+            this.tabla(this.ve.JTabla);
+            try {
+                //Obtener la cantidad de filas que se deseean ver
+                int numRow = Integer.parseInt(this.ve.jCFilas.getSelectedItem().toString());
+                //Obtener el total de filas de la tabla
+                int numTotal = this.modelo.getRowCount();
+                //Restar las filas total con las que se desea ver
+                int totalRows = numTotal - numRow;
+                for (int i = 0; i < totalRows; i++) {
+                    this.modelo.removeRow(this.modelo.getRowCount() -1);
+                }
+                this.ve.lbFilas.setText("Mostrando "+numRow+" registros filtrado de un total de "+this.ec.numFilas());
+            } catch (Exception ea) {
+            }
+        }
+        //Eliminar un regitro
+        if (ae.getSource() == this.ve.jmEliminar) {
+            //Obtener el numero de filas seleccionadas
+            int[] fila = this.ve.JTabla.getSelectedRows();
+            //establecer un array de cadenas para los codigos
+            int[] codigo; 
+            //Instanciar el modelo Encargado
+            Encargado encargado = new Encargado();
+            //Validad si se selecciono una o mas filas
+            if (fila.length >= 0) {
+                //Si se desea borrar un registro si no, se borrara mas de uno
+                if (fila.length == 1) {
+                    //crear el array con dimencion = 1;
+                    codigo = new int[1];
+                    //Obtener el codigo de la fila seleccionada
+                    Object id = this.ve.JTabla.getValueAt(fila[0],0);
+                    codigo[0] = Integer.parseInt(id.toString());
+                    //establecer el codigo de la fila en el modelo inventario
+                    encargado.setId(codigo[0]);
+                    //Eliminar el registro
+                    if (this.ec.Eliminar(encargado)) {
+                        //Actualizar la etiqueta donde muestra el total de registros
+                        this.ve.lbFilas.setText("Mostrando un total de "+modelo.getRowCount()+" Registros");
+                        //Refrescar la tabla
+                        this.tabla(this.ve.JTabla);
+                        JOptionPane.showMessageDialog(null, "Registro borrado");
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Imposible borrar este registro");
+                    }
+                }
+                //Si se desea eliminar mas de un registro
+                else 
+                {
+                    //variable para saber si todos los registros se insertan correctamente
+                    boolean guardado = false;
+                    //crear el array de codigo con la dimencion de las filas seleccionadas
+                    codigo = new int[fila.length];
+                    //Recorrer el array con FOR para establecer los codigos en modelo inventario
+                    for (int i = 0; i < codigo.length; i++) {
+                        Object id = this.ve.JTabla.getValueAt(fila[0], 0);
+                        codigo[i] = Integer.parseInt(id.toString());
+                        encargado.setId(codigo[i]);
+                        if (this.ec.Eliminar(encargado)) {
+                            guardado = true;
+                        }else{
+                            guardado = false;
+                        }
+                    }
+                    //Lanzar mensaje si todos los registros de guardaron
+                    if (guardado) {
+                        //Actualizar la etiqueta donde muestra el total de registros
+                        this.ve.lbFilas.setText("Mostrando un total de "+modelo.getRowCount()+" Registros");
+                        //Refrescar la tabla
+                        this.tabla(this.ve.JTabla);
+                        JOptionPane.showMessageDialog(null, "Registros borrados");
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Error al eliminar");
+                    }
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "Debes Seleccionar una fila","Aviso",JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
 
     @Override
@@ -110,7 +198,30 @@ public class ctrlEncargado implements ActionListener,KeyListener{
 
     @Override
     public void keyReleased(KeyEvent ke) {
-        
+        //Saber si el usuario presiono la tecla enter en una selda de la tabla
+        if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
+            int fila = this.ve.JTabla.getSelectedRow();
+            try {
+                //obtener los datos la tabla
+                int id = (int) (Object) this.ve.JTabla.getValueAt(fila, 0);
+                String nombre = (String) this.ve.JTabla.getValueAt(fila, 1);
+                String ap1 = (String) this.ve.JTabla.getValueAt(fila, 2);
+                String ap2 = (String) this.ve.JTabla.getValueAt(fila, 3);
+                String cargo = (String) this.ve.JTabla.getValueAt(fila, 4);
+                //Instanciar el modelo area
+                Encargado encargado = new Encargado();
+                encargado.setId(id);
+                encargado.setNombre(nombre);
+                encargado.setAp1(ap1);
+                encargado.setAp2(ap2);
+                encargado.setCargo(cargo);
+                if (this.ec.modificar(encargado)) {
+                    
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Ocurrio un error");
+            }
+        }
     }
     //Limpiar los cuadros de texto
     public void limpiar(){

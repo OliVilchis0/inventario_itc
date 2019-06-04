@@ -6,7 +6,6 @@ import modelo.*;
 import vista.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import static java.awt.Frame.MAXIMIZED_BOTH;
 import javax.swing.ImageIcon;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
@@ -42,6 +41,12 @@ public class ctrlInicio implements ActionListener{
     public void actionPerformed(ActionEvent e){
         //Vista principal
          if (e.getSource() == vi.bntInicio) {
+            //establecer el color del icono
+            vi.btnEcds.setIcon(new ImageIcon(getClass().getResource("/imagenes/usuarios-multiples-en-silueta.png")));
+            vi.btnInventario.setIcon(new ImageIcon(getClass().getResource("/imagenes/archivo-de-caja-negra.png")));
+            vi.bntInicio.setIcon(new ImageIcon(getClass().getResource("/imagenes/home_blanco.png")));
+            vi.btnareas.setIcon(new ImageIcon(getClass().getResource("/imagenes/areas.png")));
+            vi.btncat.setIcon(new ImageIcon(getClass().getResource("/imagenes/categoria.png")));
              //Establecer color
             vi.bntInicio.setBackground(Color.red);
             vi.btnareas.setBackground(new Color(52,58,64));
@@ -64,6 +69,12 @@ public class ctrlInicio implements ActionListener{
          }
         //Vista Inventario
         if (e.getSource() == vi.btnInventario) {
+            //establecer el color del icono
+            vi.btnEcds.setIcon(new ImageIcon(getClass().getResource("/imagenes/usuarios-multiples-en-silueta.png")));
+            vi.btnInventario.setIcon(new ImageIcon(getClass().getResource("/imagenes/inventario_blanco.png")));
+            vi.bntInicio.setIcon(new ImageIcon(getClass().getResource("/imagenes/home.png")));
+            vi.btnareas.setIcon(new ImageIcon(getClass().getResource("/imagenes/areas.png")));
+            vi.btncat.setIcon(new ImageIcon(getClass().getResource("/imagenes/categoria.png")));
             //establecer color
             vi.bntInicio.setBackground(new Color(52,58,64));
             vi.btnareas.setBackground(new Color(52,58,64));
@@ -84,6 +95,12 @@ public class ctrlInicio implements ActionListener{
         }
         //Vista de areas
          if (e.getSource() == vi.btnareas) {
+            //establecer el color del icono
+            vi.btnEcds.setIcon(new ImageIcon(getClass().getResource("/imagenes/usuarios-multiples-en-silueta.png")));
+            vi.btnInventario.setIcon(new ImageIcon(getClass().getResource("/imagenes/archivo-de-caja-negra.png")));
+            vi.bntInicio.setIcon(new ImageIcon(getClass().getResource("/imagenes/home.png")));
+            vi.btnareas.setIcon(new ImageIcon(getClass().getResource("/imagenes/areas_blanco.png")));
+            vi.btncat.setIcon(new ImageIcon(getClass().getResource("/imagenes/categoria.png")));
              //Establecer color 
              vi.bntInicio.setBackground(new Color(52,58,64));
              vi.btnInventario.setBackground(new Color(52,58,64));
@@ -104,6 +121,12 @@ public class ctrlInicio implements ActionListener{
         }
         //Vista Encargados
         if (e.getSource() == vi.btnEcds) {
+            //establecer el color del icono
+            vi.btnEcds.setIcon(new ImageIcon(getClass().getResource("/imagenes/encargados_blanco.png")));
+            vi.btnInventario.setIcon(new ImageIcon(getClass().getResource("/imagenes/archivo-de-caja-negra.png")));
+            vi.bntInicio.setIcon(new ImageIcon(getClass().getResource("/imagenes/home.png")));
+            vi.btnareas.setIcon(new ImageIcon(getClass().getResource("/imagenes/areas.png")));
+            vi.btncat.setIcon(new ImageIcon(getClass().getResource("/imagenes/categoria.png")));
             //Establecer color 
             vi.bntInicio.setBackground(new Color(52,58,64));
             vi.btnInventario.setBackground(new Color(52,58,64));
@@ -124,6 +147,12 @@ public class ctrlInicio implements ActionListener{
          }
          //Vista Categorias
          if (e.getSource() == vi.btncat) {
+            //establecer el color del icono
+            vi.btnEcds.setIcon(new ImageIcon(getClass().getResource("/imagenes/usuarios-multiples-en-silueta.png")));
+            vi.btnInventario.setIcon(new ImageIcon(getClass().getResource("/imagenes/archivo-de-caja-negra.png")));
+            vi.bntInicio.setIcon(new ImageIcon(getClass().getResource("/imagenes/home.png")));
+            vi.btnareas.setIcon(new ImageIcon(getClass().getResource("/imagenes/areas.png")));
+            vi.btncat.setIcon(new ImageIcon(getClass().getResource("/imagenes/categoria_blanco.png")));
             //Establecer color 
              vi.bntInicio.setBackground(new Color(52,58,64));
              vi.btnInventario.setBackground(new Color(52,58,64));

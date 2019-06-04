@@ -27,15 +27,16 @@ public class viewAreas extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jpEliminar = new javax.swing.JMenuItem();
         jpinsertar = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtNuevaArea = new javax.swing.JTextField();
         btnguardar = new javax.swing.JButton();
         jpbuscar = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        jcFilas = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtbuscar = new javax.swing.JTextField();
         jptabla = new javax.swing.JPanel();
@@ -44,6 +45,13 @@ public class viewAreas extends javax.swing.JPanel {
         jpimagen = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jpinferior = new javax.swing.JPanel();
+        lbTotalRow = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+
+        jpEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/borrar_azul.png"))); // NOI18N
+        jpEliminar.setText("Eliminar");
+        jPopupMenu1.add(jpEliminar);
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -79,16 +87,15 @@ public class viewAreas extends javax.swing.JPanel {
         jLabel2.setText("Mostrar");
         jpbuscar.add(jLabel2);
 
-        jComboBox1.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox1.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10", "25", "50", "100" }));
-        jComboBox1.setBorder(null);
-        jpbuscar.add(jComboBox1);
+        jcFilas.setBackground(new java.awt.Color(255, 255, 255));
+        jcFilas.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        jcFilas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Todo", "5", "10", "25", "50", "100" }));
+        jcFilas.setBorder(null);
+        jpbuscar.add(jcFilas);
 
         jLabel3.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         jLabel3.setText("Registros");
         jpbuscar.add(jLabel3);
-        jpbuscar.add(jLabel4);
 
         jLabel5.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         jLabel5.setText("Buscar");
@@ -112,12 +119,13 @@ public class viewAreas extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jtarea.setComponentPopupMenu(jPopupMenu1);
         jScrollPane2.setViewportView(jtarea);
 
         jptabla.add(jScrollPane2);
 
         jpimagen.setBackground(new java.awt.Color(255, 255, 255));
-        jpimagen.setLayout(new java.awt.GridLayout());
+        jpimagen.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/areas_grande.png"))); // NOI18N
@@ -126,17 +134,26 @@ public class viewAreas extends javax.swing.JPanel {
         jpimagen.add(jLabel6);
 
         jpinferior.setBackground(new java.awt.Color(255, 255, 255));
+        jpinferior.setLayout(new java.awt.GridLayout(1, 4, 10, 0));
 
-        javax.swing.GroupLayout jpinferiorLayout = new javax.swing.GroupLayout(jpinferior);
-        jpinferior.setLayout(jpinferiorLayout);
-        jpinferiorLayout.setHorizontalGroup(
-            jpinferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jpinferiorLayout.setVerticalGroup(
-            jpinferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
-        );
+        lbTotalRow.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        jpinferior.add(lbTotalRow);
+
+        jButton1.setBackground(new java.awt.Color(52, 58, 64));
+        jButton1.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/excel.png"))); // NOI18N
+        jButton1.setText("Excel");
+        jButton1.setBorderPainted(false);
+        jpinferior.add(jButton1);
+
+        jButton2.setBackground(new java.awt.Color(52, 58, 64));
+        jButton2.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pdf.png"))); // NOI18N
+        jButton2.setText("PDF");
+        jButton2.setBorderPainted(false);
+        jpinferior.add(jButton2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -158,17 +175,17 @@ public class viewAreas extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jpinsertar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, Short.MAX_VALUE)
+                        .addComponent(jpinsertar, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jpimagen, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jpbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jptabla, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(jptabla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jpinferior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jpinferior, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -176,20 +193,24 @@ public class viewAreas extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnguardar;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane2;
+    public javax.swing.JComboBox jcFilas;
+    public javax.swing.JMenuItem jpEliminar;
     private javax.swing.JPanel jpbuscar;
     private javax.swing.JPanel jpimagen;
     private javax.swing.JPanel jpinferior;
     private javax.swing.JPanel jpinsertar;
     private javax.swing.JPanel jptabla;
     public javax.swing.JTable jtarea;
+    public javax.swing.JLabel lbTotalRow;
     public javax.swing.JTextField txtNuevaArea;
     public javax.swing.JTextField txtbuscar;
     // End of variables declaration//GEN-END:variables

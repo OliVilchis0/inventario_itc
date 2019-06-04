@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class Conexion {
     private final String base = "inventario-itc";
@@ -20,7 +21,7 @@ public class Conexion {
             Class.forName("com.mysql.jdbc.Driver");
             con = (Connection) DriverManager.getConnection(this.url, this.user, this.pass);
         } catch (SQLException e) {
-            System.out.print(e);
+            JOptionPane.showMessageDialog(null, "; (\nSin Conenxion\n"+e,"Error",JOptionPane.ERROR_MESSAGE);
         }
         catch(ClassNotFoundException ex){
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);

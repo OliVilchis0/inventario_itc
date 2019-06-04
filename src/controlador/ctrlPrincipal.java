@@ -6,8 +6,6 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Map;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 import modelo.AreaCrud;
 import modelo.EncargadoCrud;
 import modelo.InventarioCrud;

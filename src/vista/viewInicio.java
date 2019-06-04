@@ -54,8 +54,8 @@ public class viewInicio extends javax.swing.JFrame {
         bntInicio.setBackground(new java.awt.Color(52, 58, 64));
         bntInicio.setFont(new java.awt.Font("DejaVu Sans", 2, 12)); // NOI18N
         bntInicio.setForeground(new java.awt.Color(255, 255, 255));
-        bntInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/home.png"))); // NOI18N
-        bntInicio.setText("Inicio                              ");
+        bntInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/home_blanco.png"))); // NOI18N
+        bntInicio.setText("Inicio                                  ");
         bntInicio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(184, 18, 18)));
         bntInicio.setBorderPainted(false);
         bntInicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));

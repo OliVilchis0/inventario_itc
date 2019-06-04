@@ -27,6 +27,8 @@ public class viewEncargado extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jmEliminar = new javax.swing.JMenuItem();
         JPInsertar = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
@@ -39,7 +41,7 @@ public class viewEncargado extends javax.swing.JPanel {
         btnGuardar = new javax.swing.JButton();
         JPBuscar = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        jCFilas = new javax.swing.JComboBox();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         txtBuscar = new javax.swing.JTextField();
@@ -47,8 +49,16 @@ public class viewEncargado extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         JTabla = new javax.swing.JTable();
         JPInferior = new javax.swing.JPanel();
+        lbFilas = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         JPIcono = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+
+        jmEliminar.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        jmEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/borrar_azul.png"))); // NOI18N
+        jmEliminar.setText("Eliminar");
+        jPopupMenu1.add(jmEliminar);
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -101,10 +111,10 @@ public class viewEncargado extends javax.swing.JPanel {
         jLabel6.setText("Mostrar");
         JPBuscar.add(jLabel6);
 
-        jComboBox1.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox1.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10", "25", "50", "100" }));
-        JPBuscar.add(jComboBox1);
+        jCFilas.setBackground(new java.awt.Color(255, 255, 255));
+        jCFilas.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        jCFilas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Todo", "5", "10", "25", "50", "100" }));
+        JPBuscar.add(jCFilas);
 
         jLabel7.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         jLabel7.setText("Registros");
@@ -132,22 +142,32 @@ public class viewEncargado extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        JTabla.setComponentPopupMenu(jPopupMenu1);
         jScrollPane1.setViewportView(JTabla);
 
         JPTabla.add(jScrollPane1);
 
         JPInferior.setBackground(new java.awt.Color(255, 255, 255));
+        JPInferior.setLayout(new java.awt.GridLayout(1, 4, 10, 0));
 
-        javax.swing.GroupLayout JPInferiorLayout = new javax.swing.GroupLayout(JPInferior);
-        JPInferior.setLayout(JPInferiorLayout);
-        JPInferiorLayout.setHorizontalGroup(
-            JPInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        JPInferiorLayout.setVerticalGroup(
-            JPInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 41, Short.MAX_VALUE)
-        );
+        lbFilas.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        JPInferior.add(lbFilas);
+
+        jButton1.setBackground(new java.awt.Color(52, 58, 64));
+        jButton1.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/excel.png"))); // NOI18N
+        jButton1.setText("Excel");
+        jButton1.setBorderPainted(false);
+        JPInferior.add(jButton1);
+
+        jButton2.setBackground(new java.awt.Color(52, 58, 64));
+        jButton2.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pdf.png"))); // NOI18N
+        jButton2.setText("PDF");
+        jButton2.setBorderPainted(false);
+        JPInferior.add(jButton2);
 
         JPIcono.setBackground(new java.awt.Color(255, 255, 255));
         JPIcono.setLayout(new java.awt.GridLayout(1, 0));
@@ -183,9 +203,10 @@ public class viewEncargado extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(JPBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(JPTabla, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(JPInferior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(JPTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(JPInferior, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -199,7 +220,9 @@ public class viewEncargado extends javax.swing.JPanel {
     private javax.swing.JPanel JPTabla;
     public javax.swing.JTable JTabla;
     public javax.swing.JButton btnGuardar;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    public javax.swing.JComboBox jCFilas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -208,7 +231,10 @@ public class viewEncargado extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
+    public javax.swing.JMenuItem jmEliminar;
+    public javax.swing.JLabel lbFilas;
     public javax.swing.JTextField txtAp1;
     public javax.swing.JTextField txtAp2;
     public javax.swing.JTextField txtBuscar;

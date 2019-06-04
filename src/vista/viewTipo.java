@@ -27,6 +27,8 @@ public class viewTipo extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jmEliminar = new javax.swing.JMenuItem();
         jpinsertar = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
@@ -35,7 +37,7 @@ public class viewTipo extends javax.swing.JPanel {
         bntGuardar = new javax.swing.JButton();
         jpbuscar = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        jCFilas = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtBuscar = new javax.swing.JTextField();
@@ -43,8 +45,16 @@ public class viewTipo extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         JTabla = new javax.swing.JTable();
         jpinferior = new javax.swing.JPanel();
+        lbFilas = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         JPicono = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
+
+        jmEliminar.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        jmEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/borrar_azul.png"))); // NOI18N
+        jmEliminar.setText("Eliimnar");
+        jPopupMenu1.add(jmEliminar);
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -85,10 +95,10 @@ public class viewTipo extends javax.swing.JPanel {
         jLabel1.setText("Mostrar");
         jpbuscar.add(jLabel1);
 
-        jComboBox1.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox1.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jpbuscar.add(jComboBox1);
+        jCFilas.setBackground(new java.awt.Color(255, 255, 255));
+        jCFilas.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        jCFilas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Todo", "5", "10", "25", "50", "100" }));
+        jpbuscar.add(jCFilas);
 
         jLabel2.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         jLabel2.setText("Registros");
@@ -116,22 +126,32 @@ public class viewTipo extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        JTabla.setComponentPopupMenu(jPopupMenu1);
         jScrollPane1.setViewportView(JTabla);
 
         jptabla.add(jScrollPane1);
 
         jpinferior.setBackground(new java.awt.Color(255, 255, 255));
+        jpinferior.setLayout(new java.awt.GridLayout(1, 4, 10, 0));
 
-        javax.swing.GroupLayout jpinferiorLayout = new javax.swing.GroupLayout(jpinferior);
-        jpinferior.setLayout(jpinferiorLayout);
-        jpinferiorLayout.setHorizontalGroup(
-            jpinferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jpinferiorLayout.setVerticalGroup(
-            jpinferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
-        );
+        lbFilas.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        jpinferior.add(lbFilas);
+
+        jButton1.setBackground(new java.awt.Color(52, 58, 64));
+        jButton1.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/excel.png"))); // NOI18N
+        jButton1.setText("Excel");
+        jButton1.setBorderPainted(false);
+        jpinferior.add(jButton1);
+
+        jButton2.setBackground(new java.awt.Color(52, 58, 64));
+        jButton2.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pdf.png"))); // NOI18N
+        jButton2.setText("PDF");
+        jButton2.setBorderPainted(false);
+        jpinferior.add(jButton2);
 
         JPicono.setBackground(new java.awt.Color(255, 255, 255));
         JPicono.setLayout(new java.awt.GridLayout(1, 0));
@@ -163,13 +183,14 @@ public class viewTipo extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jpinsertar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(JPicono, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(JPicono, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jpbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jptabla, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
+                        .addComponent(jptabla, javax.swing.GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jpinferior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jpinferior, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8)))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -179,18 +200,23 @@ public class viewTipo extends javax.swing.JPanel {
     private javax.swing.JPanel JPicono;
     public javax.swing.JTable JTabla;
     public javax.swing.JButton bntGuardar;
-    private javax.swing.JComboBox jComboBox1;
+    public javax.swing.JButton jButton1;
+    public javax.swing.JButton jButton2;
+    public javax.swing.JComboBox jCFilas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
+    public javax.swing.JMenuItem jmEliminar;
     private javax.swing.JPanel jpbuscar;
     private javax.swing.JPanel jpinferior;
     private javax.swing.JPanel jpinsertar;
     private javax.swing.JPanel jptabla;
+    public javax.swing.JLabel lbFilas;
     public javax.swing.JTextField txtBuscar;
     public javax.swing.JTextField txtDescripcion;
     public javax.swing.JTextField txtNombre;
