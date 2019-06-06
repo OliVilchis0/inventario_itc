@@ -21,7 +21,7 @@ public class viewInventario extends javax.swing.JPanel {
     private void initComponents() {
 
         submenuTabla = new javax.swing.JPopupMenu();
-        JModificar = new javax.swing.JMenuItem();
+        jmcodigo = new javax.swing.JMenuItem();
         JMEliminar = new javax.swing.JMenuItem();
         JMPropiedades = new javax.swing.JMenuItem();
         jpinsetar = new javax.swing.JPanel();
@@ -84,14 +84,15 @@ public class viewInventario extends javax.swing.JPanel {
         submenuTabla.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         submenuTabla.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        JModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/editar_azul.png"))); // NOI18N
-        JModificar.setText("Modificar");
-        submenuTabla.add(JModificar);
+        jmcodigo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/barras_azul.png"))); // NOI18N
+        jmcodigo.setText("Imprimir codigo");
+        submenuTabla.add(jmcodigo);
 
         JMEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/borrar_azul.png"))); // NOI18N
         JMEliminar.setText("Eliminar");
         submenuTabla.add(JMEliminar);
 
+        JMPropiedades.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/detalles.png"))); // NOI18N
         JMPropiedades.setText("Propiedades");
         submenuTabla.add(JMPropiedades);
 
@@ -218,10 +219,12 @@ public class viewInventario extends javax.swing.JPanel {
 
         jcencargado.setBackground(new java.awt.Color(255, 255, 255));
         jcencargado.setFont(new java.awt.Font("DejaVu Sans", 2, 12)); // NOI18N
+        jcencargado.setPreferredSize(new java.awt.Dimension(54, 25));
         jpencergado.add(jcencargado);
 
         btnMasEcgd.setBackground(new java.awt.Color(0, 123, 255));
         btnMasEcgd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/mas.png"))); // NOI18N
+        btnMasEcgd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jpencergado.add(btnMasEcgd);
 
         jpinsetar.add(jpencergado);
@@ -365,8 +368,8 @@ public class viewInventario extends javax.swing.JPanel {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jpinsetar, javax.swing.GroupLayout.PREFERRED_SIZE, 758, Short.MAX_VALUE)
-                    .addGap(23, 23, 23)))
+                    .addComponent(jpinsetar, javax.swing.GroupLayout.PREFERRED_SIZE, 766, Short.MAX_VALUE)
+                    .addGap(15, 15, 15)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -423,7 +426,6 @@ public class viewInventario extends javax.swing.JPanel {
     public javax.swing.JLabel JLfilas;
     public javax.swing.JMenuItem JMEliminar;
     public javax.swing.JMenuItem JMPropiedades;
-    public javax.swing.JMenuItem JModificar;
     public javax.swing.JTable JTDatos;
     public javax.swing.JLabel LbDetalles;
     public javax.swing.JLabel LbMarca;
@@ -436,7 +438,7 @@ public class viewInventario extends javax.swing.JPanel {
     private javax.swing.JButton btnexcel;
     public javax.swing.JButton btnguardar;
     public javax.swing.JButton btnlimpiar;
-    private javax.swing.JButton btnpdf;
+    public javax.swing.JButton btnpdf;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -456,6 +458,7 @@ public class viewInventario extends javax.swing.JPanel {
     public javax.swing.JComboBox<String> jcarea;
     public javax.swing.JComboBox<String> jccategoria;
     public javax.swing.JComboBox<String> jcencargado;
+    public javax.swing.JMenuItem jmcodigo;
     private javax.swing.JPanel jparea;
     private javax.swing.JPanel jpbuscar;
     private javax.swing.JPanel jpcodigo;

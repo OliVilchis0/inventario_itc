@@ -28,7 +28,7 @@ public class viewInicio extends javax.swing.JFrame {
         jPanel16 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
+        btnPdf = new javax.swing.JButton();
         JPTitulo = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -164,18 +164,18 @@ public class viewInicio extends javax.swing.JFrame {
         jButton3.setPreferredSize(new java.awt.Dimension(200, 40));
         JPSidebar.add(jButton3);
 
-        jButton9.setFont(new java.awt.Font("DejaVu Sans", 2, 12)); // NOI18N
-        jButton9.setForeground(new java.awt.Color(255, 255, 255));
-        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pdf.png"))); // NOI18N
-        jButton9.setText("Pdf                                     ");
-        jButton9.setBorder(null);
-        jButton9.setBorderPainted(false);
-        jButton9.setContentAreaFilled(false);
-        jButton9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton9.setFocusable(false);
-        jButton9.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jButton9.setPreferredSize(new java.awt.Dimension(200, 40));
-        JPSidebar.add(jButton9);
+        btnPdf.setFont(new java.awt.Font("DejaVu Sans", 2, 12)); // NOI18N
+        btnPdf.setForeground(new java.awt.Color(255, 255, 255));
+        btnPdf.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pdf.png"))); // NOI18N
+        btnPdf.setText("Pdf                                     ");
+        btnPdf.setBorder(null);
+        btnPdf.setBorderPainted(false);
+        btnPdf.setContentAreaFilled(false);
+        btnPdf.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnPdf.setFocusable(false);
+        btnPdf.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        btnPdf.setPreferredSize(new java.awt.Dimension(200, 40));
+        JPSidebar.add(btnPdf);
 
         JPTitulo.setBackground(new java.awt.Color(255, 255, 255));
         JPTitulo.setPreferredSize(new java.awt.Dimension(60, 60));
@@ -293,10 +293,10 @@ public class viewInicio extends javax.swing.JFrame {
     public javax.swing.JButton bntInicio;
     public javax.swing.JButton btnEcds;
     public javax.swing.JButton btnInventario;
+    public javax.swing.JButton btnPdf;
     public javax.swing.JButton btnareas;
     public javax.swing.JButton btncat;
     public javax.swing.JButton jButton3;
-    public javax.swing.JButton jButton9;
     public javax.swing.JLabel jLabel1;
     public javax.swing.JLabel jLabel2;
     public javax.swing.JLabel jLabel3;

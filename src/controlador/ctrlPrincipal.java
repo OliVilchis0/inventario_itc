@@ -3,13 +3,20 @@ package controlador;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.MouseInfo;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Map;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import modelo.Area;
 import modelo.AreaCrud;
+import modelo.Encargado;
 import modelo.EncargadoCrud;
 import modelo.InventarioCrud;
 import modelo.TipoCrud;
+import modelo.TipoPro;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -27,7 +34,9 @@ import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.ui.RectangleEdge;
 import org.jfree.ui.RectangleInsets;
 import vista.viewAreaAD;
-import vista.viewCateAD;
+import vista.viewDialogArea;
+import vista.viewDialogEcgd;
+import vista.viewDialogTipo;
 import vista.viewEncarAD;
 import vista.viewPrincipal;
 
@@ -199,29 +208,135 @@ public class ctrlPrincipal implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent ae) {
+        //Lanzar ventana para agregar nueva area
         if (ae.getSource() == this.vp.btnAreas) {
-            //instanciar vista
-            viewAreaAD viewA = new viewAreaAD();
-            //Instanciar modelo
+            //obtener las coordenadas del raton para que se visualize el JDialog
+            Point punto = MouseInfo.getPointerInfo().getLocation();
+            int x = punto.x;
+            int y = punto.y;
+            //Instanciar el modelo tipo
+            Area area = new Area();
+            //Instanciar el modelo tipoCrud
             AreaCrud areaC = new AreaCrud();
-            //Instanciar el controlador
-            ctrlAreaAD crtlA = new ctrlAreaAD(viewA,areaC);
+            //Intanciar la ventana de nueva categoria
+            viewDialogArea view = new viewDialogArea(null,true);
+            view.setTitle("Nueva Area");
+            view.setIconImage(new ImageIcon("src/imagenes/areas.png").getImage());
+            view.setLocation(x-400, y);
+            view.setVisible(true);
+            //abrir ventana hasta que el usuasio presione cancelar en el jdialog
+            while(view.estado != -1){
+                //Obtener los datos de las cajas de texto
+                String nombre = view.txtNombre.getText();
+                //Ingresar valores al objeto tipo
+                area.setDescripcion(nombre);
+                //Si el estado es igual a 0 guardara los datos en la DB y se cerrara la ventana
+                if (view.estado == 0) {
+                    //ingresar los datos a la DB
+                    if (!areaC.registrar(area)) {
+                        JOptionPane.showMessageDialog(null,"; (\nDebio Ocurrir un error","Aviso",JOptionPane.ERROR_MESSAGE);
+                    }
+                    vp.lbareas.setText(Integer.toString(ac.numFilas()));
+                    //Romper el ciclo
+                    break;
+                }
+                //ingresar los datos a la DB
+                if (!areaC.registrar(area)) {
+                    JOptionPane.showMessageDialog(null,"; (\nDebio Ocurrir un error","Aviso",JOptionPane.ERROR_MESSAGE);
+                }
+                //Resetear las cajas de texto
+                view.txtNombre.setText("");
+                view.setVisible(true);
+                //Actualizar los datos de label areas
+                vp.lbareas.setText(Integer.toString(ac.numFilas()));
+            }
         }
+        //lanzar vantana para agregar una nueva categoria
         if (ae.getSource() == this.vp.btnCategory) {
-           //instanciar vista
-            viewCateAD viewT = new viewCateAD();
-            //Instanciar modelo
-            TipoCrud TipoC = new TipoCrud();
-            //Instanciar el controlador
-            ctrlTipoAD crtlA = new ctrlTipoAD(viewT,TipoC);  
+           //obtener las coordenadas del raton para que se visualize el JDialog
+            Point punto = MouseInfo.getPointerInfo().getLocation();
+            int x = punto.x;
+            int y = punto.y;
+            //Instanciar el modelo tipo
+            TipoPro tipo = new TipoPro();
+            //Instanciar el modelo tipoCrud
+            TipoCrud tipoC = new TipoCrud();
+            //Intanciar la ventana de nueva categoria
+            viewDialogTipo view = new viewDialogTipo(null,true);
+            view.setTitle("Nueva Categoria");
+            view.setIconImage(new ImageIcon("src/imagenes/categoria.png").getImage());
+            view.setLocation(x-400, y);
+            view.setVisible(true);
+            //abrir ventana hasta que el usuasio presione cancelar en el jdialog
+            while(view.estado){
+                //Obtener los datos de las cajas de texto
+                String nombre = view.txtNombre.getText();
+                String descripcion = view.txtDescripcion.getText();
+                //Ingresar valores al objeto tipo
+                tipo.setNombre(nombre);
+                tipo.setDescripcion(descripcion);
+                //ingresar los datos a la DB
+                if (!tipoC.registrar(tipo)) {
+                    JOptionPane.showMessageDialog(null,"; (\nDebio Ocurrir un error","Aviso",JOptionPane.ERROR_MESSAGE);
+                }
+                //Resetear las cajas de texto
+                view.txtNombre.setText("");
+                view.txtDescripcion.setText("");
+                view.setVisible(true);
+                vp.lbcategorias.setText(Integer.toString(tc.numFilas()));
+            } 
         }
         if (ae.getSource() == this.vp.btnEncar) {
-           //instanciar vista
-            viewEncarAD viewA = new viewEncarAD();
-            //Instanciar modelo
-            EncargadoCrud areaC = new EncargadoCrud();
-            //Instanciar el controlador
-            ctrlecgd crtlA = new ctrlecgd(viewA,areaC); 
+           //obtener las coordenadas del raton para que se visualize el JDialog
+            Point punto = MouseInfo.getPointerInfo().getLocation();
+            int x = punto.x;
+            int y = punto.y;
+            //Instanciar el modelo Encargado
+            Encargado ecgd = new Encargado();
+            //Instanciar el modelo tipoCrud
+            EncargadoCrud encargadoC = new EncargadoCrud();
+            //Intanciar la ventana de nueva categoria
+            viewDialogEcgd view = new viewDialogEcgd(null,true);
+            view.setTitle("Nuevo Encargado");
+            view.setIconImage(new ImageIcon("src/imagenes/usuarios-multiples-en-silueta.png").getImage());
+            view.setLocation(x-400, y);
+            view.setVisible(true);
+            //abrir ventana hasta que el usuasio presione cancelar en el jdialog
+            while(view.estado != -1){
+                //Obtener los datos de las cajas de texto
+                String nombre = view.txtNombre.getText();
+                String ap1 = view.txtAp1.getText();
+                String ap2 = view.txtAp2.getText();
+                String cargo = view.txtCargo.getText();
+                //Ingresar valores al objeto tipo
+                ecgd.setNombre(nombre);
+                ecgd.setAp1(ap1);
+                ecgd.setAp2(ap2);
+                ecgd.setCargo(cargo);
+                //Si solo se quiere ingresar un registro y salir de dialof
+                if (view.estado == 0) {
+                    //ingresar los datos a la DB
+                    if (!encargadoC.registrar(ecgd)) {
+                        JOptionPane.showMessageDialog(null,"; (\nDebio Ocurrir un error","Aviso",JOptionPane.ERROR_MESSAGE);
+                    }
+                    //Actualizar la etiqueta de encargado
+                    vp.lbencargados.setText(Integer.toString(ec.numFilas()));
+                    //Romper el ciclo
+                    break;
+                }
+                //ingresar los datos a la DB
+                if (!encargadoC.registrar(ecgd)) {
+                    JOptionPane.showMessageDialog(null,"; (\nDebio Ocurrir un error","Aviso",JOptionPane.ERROR_MESSAGE);
+                }
+                //Resetear las cajas de texto
+                view.txtNombre.setText("");
+                view.txtAp1.setText("");
+                view.txtAp2.setText("");
+                view.txtCargo.setText("");
+                view.setVisible(true);
+                //Actualizar la etiqueta de encargado
+                vp.lbencargados.setText(Integer.toString(ec.numFilas()));
+            }
         }
         if (ae.getSource() == this.vp.btninvetario) {
             

@@ -14,8 +14,6 @@ import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableRowSorter;
-import modelo.Encargado;
-import modelo.Inventario;
 import modelo.TipoCrud;
 import modelo.TipoPro;
 import vista.viewTipo;
@@ -41,6 +39,8 @@ public class ctrlTipo implements ActionListener,KeyListener{
         //Activar Botones para lanzar evento KeyListener
         this.vt.txtBuscar.addKeyListener(this);
         this.vt.JTabla.addKeyListener(this);
+        //Bloquear el boton pdf
+        this.vt.btnPdf.setEnabled(false);
     }
     //Lista todos los registros en una tabla
     public void tabla(JTable tabla){
@@ -90,8 +90,16 @@ public class ctrlTipo implements ActionListener,KeyListener{
                 tipo.setDescripcion(this.vt.txtDescripcion.getText());
                 if (this.tc.registrar(tipo)) {
                     this.limpiar();
-                    this.tabla(this.vt.JTabla);
-                    JOptionPane.showMessageDialog(null, "Ragistro guardado exitosamente","Mensaje",JOptionPane.INFORMATION_MESSAGE);
+                    //tratar de actualizar la tabla
+                    try {
+                        this.tabla(this.vt.JTabla);
+                    } catch (Exception e) {
+                        Object[] datos = {tipo.getId(),tipo.getNombre(),tipo.getDescripcion()};
+                        modelo.addRow(datos);
+                    }
+                    //Establecer el foco en la caja de texto nombre
+                    this.vt.txtNombre.requestFocus();
+                    //JOptionPane.showMessageDialog(null, "Ragistro guardado exitosamente","Mensaje",JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     this.tabla(this.vt.JTabla);
                     JOptionPane.showMessageDialog(null, "; )\nError al intentar guardar el registro","Mensaje",JOptionPane.ERROR_MESSAGE);
@@ -139,9 +147,13 @@ public class ctrlTipo implements ActionListener,KeyListener{
                     if (this.tc.Eliminar(tipo)) {
                         //Actualizar la etiqueta donde muestra el total de registros
                         this.vt.lbFilas.setText("Mostrando un total de "+modelo.getRowCount()+" Registros");
-                        //Refrescar la tabla
-                        this.tabla(this.vt.JTabla);
-                        JOptionPane.showMessageDialog(null, "Registro borrado");
+                        //Tratar de refrescar la tabla
+                        try {
+                            this.tabla(this.vt.JTabla);
+                        } catch (Exception e) {
+                            this.modelo.removeRow(fila[0]);
+                        }
+                        //JOptionPane.showMessageDialog(null, "Registro borrado");
                     }else{
                         JOptionPane.showMessageDialog(null, "Imposible borrar este registro");
                     }
@@ -155,9 +167,10 @@ public class ctrlTipo implements ActionListener,KeyListener{
                     codigo = new int[fila.length];
                     //Recorrer el array con FOR para establecer los codigos en modelo inventario
                     for (int i = 0; i < codigo.length; i++) {
-                        Object id = this.vt.JTabla.getValueAt(fila[0], 0);
+                        Object id = this.vt.JTabla.getValueAt(fila[i], 0);
                         codigo[i] = Integer.parseInt(id.toString());
                         tipo.setId(codigo[i]);
+                        System.out.println(tipo.getId());
                         if (this.tc.Eliminar(tipo)) {
                             guardado = true;
                         }else{
@@ -170,7 +183,7 @@ public class ctrlTipo implements ActionListener,KeyListener{
                         this.vt.lbFilas.setText("Mostrando un total de "+modelo.getRowCount()+" Registros");
                         //Refrescar la tabla
                         this.tabla(this.vt.JTabla);
-                        JOptionPane.showMessageDialog(null, "Registros borrados");
+                        //JOptionPane.showMessageDialog(null, "Registros borrados");
                     }else{
                         JOptionPane.showMessageDialog(null, "Error al eliminar");
                     }
@@ -206,8 +219,8 @@ public class ctrlTipo implements ActionListener,KeyListener{
                 tipo.setId(id);
                 tipo.setNombre(nombre);
                 tipo.setDescripcion(descripcion);
-                if (this.tc.modificar(tipo)) {
-                    
+                if (!this.tc.modificar(tipo)) {
+                    JOptionPane.showMessageDialog(null,"; (\nDebio Ocurrir un error","AVISO",JOptionPane.ERROR_MESSAGE);
                 }
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Ocurrio un error");

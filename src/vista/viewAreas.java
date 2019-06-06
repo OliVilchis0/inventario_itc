@@ -47,7 +47,7 @@ public class viewAreas extends javax.swing.JPanel {
         jpinferior = new javax.swing.JPanel();
         lbTotalRow = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnPdf = new javax.swing.JButton();
 
         jpEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/borrar_azul.png"))); // NOI18N
         jpEliminar.setText("Eliminar");
@@ -147,13 +147,13 @@ public class viewAreas extends javax.swing.JPanel {
         jButton1.setBorderPainted(false);
         jpinferior.add(jButton1);
 
-        jButton2.setBackground(new java.awt.Color(52, 58, 64));
-        jButton2.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pdf.png"))); // NOI18N
-        jButton2.setText("PDF");
-        jButton2.setBorderPainted(false);
-        jpinferior.add(jButton2);
+        btnPdf.setBackground(new java.awt.Color(52, 58, 64));
+        btnPdf.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        btnPdf.setForeground(new java.awt.Color(255, 255, 255));
+        btnPdf.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pdf.png"))); // NOI18N
+        btnPdf.setText("PDF");
+        btnPdf.setBorderPainted(false);
+        jpinferior.add(btnPdf);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -192,9 +192,9 @@ public class viewAreas extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton btnPdf;
     public javax.swing.JButton btnguardar;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

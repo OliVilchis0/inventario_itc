@@ -8,7 +8,6 @@ import javax.swing.ListSelectionModel;
 
 public class viewDatos extends javax.swing.JDialog {
     
-    public JList lista;
     public DefaultListModel modelo;
     
     public viewDatos(java.awt.Frame parent, boolean modal,String[] datos) {

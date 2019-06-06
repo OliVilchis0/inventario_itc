@@ -38,6 +38,8 @@ public class ctrlArea implements ActionListener,KeyListener {
         this.va.btnguardar.addActionListener(this);
         this.va.jcFilas.addActionListener(this);
         this.va.jpEliminar.addActionListener(this);
+        //Bloquear el boton pdf
+        this.va.btnPdf.setEnabled(false);
     }
     //Lista todos los registros en una tabla
     public void tabla(JTable tabla){
@@ -85,6 +87,7 @@ public class ctrlArea implements ActionListener,KeyListener {
                 if (this.ac.registrar(area)) {
                     this.limpiar();
                     this.tabla(this.va.jtarea);
+                    //Posicionar el foco en la caja de texto nueva area 
                     this.va.txtNuevaArea.requestFocus();
                     //JOptionPane.showMessageDialog(null, "Ragistro guardado exitosamente","Mensaje",JOptionPane.INFORMATION_MESSAGE);
                 } else {
@@ -136,7 +139,7 @@ public class ctrlArea implements ActionListener,KeyListener {
                         this.va.lbTotalRow.setText("Mostrando un total de "+modelo.getRowCount()+" Registros");
                         //Refrescar la tabla
                         this.tabla(this.va.jtarea);
-                        JOptionPane.showMessageDialog(null, "Registro borrado");
+                        //JOptionPane.showMessageDialog(null, "Registro borrado");
                     }else{
                         JOptionPane.showMessageDialog(null, "Imposible borrar este registro");
                     }
@@ -150,7 +153,7 @@ public class ctrlArea implements ActionListener,KeyListener {
                     codigo = new int[fila.length];
                     //Recorrer el array con FOR para establecer los codigos en modelo inventario
                     for (int i = 0; i < codigo.length; i++) {
-                        Object id = this.va.jtarea.getValueAt(fila[0], 0);
+                        Object id = this.va.jtarea.getValueAt(fila[i], 0);
                         codigo[i] = Integer.parseInt(id.toString());
                         area.setId(codigo[i]);
                         if (this.ac.Eliminar(area)) {
@@ -165,7 +168,7 @@ public class ctrlArea implements ActionListener,KeyListener {
                         this.va.lbTotalRow.setText("Mostrando un total de "+modelo.getRowCount()+" Registros");
                         //Refrescar la tabla
                         this.tabla(this.va.jtarea);
-                        JOptionPane.showMessageDialog(null, "Registros borrados");
+                        //JOptionPane.showMessageDialog(null, "Registros borrados");
                     }else{
                         JOptionPane.showMessageDialog(null, "Error al eliminar");
                     }

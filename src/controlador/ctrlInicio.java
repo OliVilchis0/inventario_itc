@@ -36,6 +36,7 @@ public class ctrlInicio implements ActionListener{
         this.vi.btnareas.addActionListener(this);
         this.vi.btnEcds.addActionListener(this);
         this.vi.btncat.addActionListener(this);
+        this.vi.btnPdf.setEnabled(false);
     }
     @Override
     public void actionPerformed(ActionEvent e){

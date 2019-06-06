@@ -37,11 +37,12 @@ public class TipoCrud extends Conexion{
         PreparedStatement ps = null;
         Connection con = getConexion();
         
-        String sql = "UPDATE tipo SET nombre = ? WHERE id=?";
+        String sql = "UPDATE tipo SET nombre = ?,descripcion = ? WHERE id=?";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, tp.getNombre());
-            ps.setInt(6, tp.getId());
+            ps.setString(2, tp.getDescripcion());
+            ps.setInt(3, tp.getId());
             ps.execute();
             return true;
         } catch (SQLException e) {

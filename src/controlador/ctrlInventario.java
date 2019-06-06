@@ -27,8 +27,10 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableRowSorter;
 import modelo.*;
 import vista.viewAreaAD;
-import vista.viewCateAD;
 import vista.viewDatos;
+import vista.viewDialogArea;
+import vista.viewDialogEcgd;
+import vista.viewDialogTipo;
 import vista.viewEncarAD;
 import vista.viewInventario;
 
@@ -62,7 +64,7 @@ public class ctrlInventario implements ActionListener,KeyListener,FocusListener,
         this.ventana.JCrows.addActionListener(this);
         this.ventana.JMEliminar.addActionListener(this);
         this.ventana.JMPropiedades.addActionListener(this);
-        this.ventana.JModificar.addActionListener(this);
+        this.ventana.jmcodigo.addActionListener(this);
         //Activar botones para lanzar eventos KeyListener
         this.ventana.txttextoE.addKeyListener(this);
         this.ventana.JCondicion.addKeyListener(this);
@@ -83,6 +85,8 @@ public class ctrlInventario implements ActionListener,KeyListener,FocusListener,
         this.ventana.JTDatos.addMouseListener(this);
         //establecer el codigo por defecto en campo de texto dependiendo si es editable o no
         this.codigo(this.ventana.jccategoria.getSelectedItem().toString());
+        //Bloquear el boton PDF
+        this.ventana.btnpdf.setEnabled(false);
     }
     //Lista todos los registros en una tabla
     public void tabla(JTable tabla)
@@ -276,30 +280,136 @@ public class ctrlInventario implements ActionListener,KeyListener,FocusListener,
         }
         //Lanzar ventana para agregar nueva area
         if (e.getSource() == this.ventana.btnMasArea) {
-            //instanciar vista
-            viewAreaAD viewA = new viewAreaAD();
-            //Instanciar modelo
-            AreaCrud areaC = new AreaCrud();
-            //Instanciar el controlador
-            ctrlAreaAD crtlA = new ctrlAreaAD(viewA,areaC);   
+            //obtener las coordenadas del raton para que se visualize el JDialog
+            Point punto = MouseInfo.getPointerInfo().getLocation();
+            int x = punto.x;
+            int y = punto.y;
+            //Instanciar el modelo tipo
+            Area area = new Area();
+            //Instanciar el modelo tipoCrud
+            areaC = new AreaCrud();
+            //Intanciar la ventana de nueva categoria
+            viewDialogArea view = new viewDialogArea(null,true);
+            view.setTitle("Nueva Area");
+            view.setIconImage(new ImageIcon("src/imagenes/areas.png").getImage());
+            view.setLocation(x-400, y);
+            view.setVisible(true);
+            //abrir ventana hasta que el usuasio presione cancelar en el jdialog
+            while(view.estado != -1){
+                //Obtener los datos de las cajas de texto
+                String nombre = view.txtNombre.getText();
+                //Ingresar valores al objeto tipo
+                area.setDescripcion(nombre);
+                //Si el estado es igual a 0 guardara los datos en la DB y se cerrara la ventana
+                if (view.estado == 0) {
+                    //ingresar los datos a la DB
+                    if (!areaC.registrar(area)) {
+                        JOptionPane.showMessageDialog(null,"; (\nDebio Ocurrir un error","Aviso",JOptionPane.ERROR_MESSAGE);
+                    }
+                    //Ingresar un nuevo item al combobox categoria
+                    this.ventana.jcarea.addItem(nombre);
+                    //Romper el ciclo
+                    break;
+                }
+                //ingresar los datos a la DB
+                if (!areaC.registrar(area)) {
+                    JOptionPane.showMessageDialog(null,"; (\nDebio Ocurrir un error","Aviso",JOptionPane.ERROR_MESSAGE);
+                }
+                //Resetear las cajas de texto
+                view.txtNombre.setText("");
+                view.setVisible(true);
+                //Ingresar un nuevo item al combobox categoria
+                this.ventana.jcarea.addItem(nombre);
+            }
         }
         //Lanzar ventana para agregar encargado
         if (e.getSource() == this.ventana.btnMasEcgd) {
-            //instanciar vista
-            viewEncarAD viewA = new viewEncarAD();
-            //Instanciar modelo
-            EncargadoCrud areaC = new EncargadoCrud();
-            //Instanciar el controlador
-            ctrlecgd crtlA = new ctrlecgd(viewA,areaC);
+            //obtener las coordenadas del raton para que se visualize el JDialog
+            Point punto = MouseInfo.getPointerInfo().getLocation();
+            int x = punto.x;
+            int y = punto.y;
+            //Instanciar el modelo Encargado
+            Encargado ecgd = new Encargado();
+            //Instanciar el modelo tipoCrud
+            encargadoC = new EncargadoCrud();
+            //Intanciar la ventana de nueva categoria
+            viewDialogEcgd view = new viewDialogEcgd(null,true);
+            view.setTitle("Nuevo Encargado");
+            view.setIconImage(new ImageIcon("src/imagenes/usuarios-multiples-en-silueta.png").getImage());
+            view.setLocation(x-400, y);
+            view.setVisible(true);
+            //abrir ventana hasta que el usuasio presione cancelar en el jdialog
+            while(view.estado != -1){
+                //Obtener los datos de las cajas de texto
+                String nombre = view.txtNombre.getText();
+                String ap1 = view.txtAp1.getText();
+                String ap2 = view.txtAp2.getText();
+                String cargo = view.txtCargo.getText();
+                //Ingresar valores al objeto tipo
+                ecgd.setNombre(nombre);
+                ecgd.setAp1(ap1);
+                ecgd.setAp2(ap2);
+                ecgd.setCargo(cargo);
+                //Si solo se quiere ingresar un registro y salir de dialof
+                if (view.estado == 0) {
+                    //ingresar los datos a la DB
+                    if (!encargadoC.registrar(ecgd)) {
+                        JOptionPane.showMessageDialog(null,"; (\nDebio Ocurrir un error","Aviso",JOptionPane.ERROR_MESSAGE);
+                    }
+                    //Ingresar un nuevo item al combobox categoria
+                    this.ventana.jcencargado.addItem(nombre+" "+ap1+" "+ap2);
+                    //Romper el ciclo
+                    break;
+                }
+                //ingresar los datos a la DB
+                if (!encargadoC.registrar(ecgd)) {
+                    JOptionPane.showMessageDialog(null,"; (\nDebio Ocurrir un error","Aviso",JOptionPane.ERROR_MESSAGE);
+                }
+                //Resetear las cajas de texto
+                view.txtNombre.setText("");
+                view.txtAp1.setText("");
+                view.txtAp2.setText("");
+                view.txtCargo.setText("");
+                view.setVisible(true);
+                //Ingresar un nuevo item al combobox categoria
+                this.ventana.jcencargado.addItem(nombre+" "+ap1+" "+ap2);
+            }
         }
         //Lanzar ventana de Categoria
         if (e.getSource() == this.ventana.btnMasCateg) {
-           //instanciar vista
-            viewCateAD viewT = new viewCateAD();
-            //Instanciar modelo
-            TipoCrud TipoC = new TipoCrud();
-            //Instanciar el controlador
-            ctrlTipoAD crtlA = new ctrlTipoAD(viewT,TipoC); 
+            //obtener las coordenadas del raton para que se visualize el JDialog
+            Point punto = MouseInfo.getPointerInfo().getLocation();
+            int x = punto.x;
+            int y = punto.y;
+            //Instanciar el modelo tipo
+            TipoPro tipo = new TipoPro();
+            //Instanciar el modelo tipoCrud
+            tipoC = new TipoCrud();
+            //Intanciar la ventana de nueva categoria
+            viewDialogTipo view = new viewDialogTipo(null,true);
+            view.setTitle("Nueva Categoria");
+            view.setIconImage(new ImageIcon("src/imagenes/categoria.png").getImage());
+            view.setLocation(x, y);
+            view.setVisible(true);
+            //abrir ventana hasta que el usuasio presione cancelar en el jdialog
+            while(view.estado){
+                //Obtener los datos de las cajas de texto
+                String nombre = view.txtNombre.getText();
+                String descripcion = view.txtDescripcion.getText();
+                //Ingresar valores al objeto tipo
+                tipo.setNombre(nombre);
+                tipo.setDescripcion(descripcion);
+                //ingresar los datos a la DB
+                if (!tipoC.registrar(tipo)) {
+                    JOptionPane.showMessageDialog(null,"; (\nDebio Ocurrir un error","Aviso",JOptionPane.ERROR_MESSAGE);
+                }
+                //Resetear las cajas de texto
+                view.txtNombre.setText("");
+                view.txtDescripcion.setText("");
+                view.setVisible(true);
+                //Ingresar un nuevo item al combobox categoria
+                this.ventana.jccategoria.addItem(nombre);
+            }
         }
         //Guardar un registro 
         if (e.getSource() == ventana.btnguardar) {
@@ -350,7 +460,7 @@ public class ctrlInventario implements ActionListener,KeyListener,FocusListener,
                if (consul.registrar(mt)) {
                    this.Limpiar();
                    this.codigo(this.ventana.jccategoria.getSelectedItem().toString());
-                   JOptionPane.showMessageDialog(null, "Registro Guardado");
+                   //JOptionPane.showMessageDialog(null, "Registro Guardado");
                    this.tabla(this.ventana.JTDatos);
                }else{
                    //Lanzar mensaje de error
@@ -416,7 +526,7 @@ public class ctrlInventario implements ActionListener,KeyListener,FocusListener,
                         this.codigo(this.ventana.jccategoria.getSelectedItem().toString());
                         //Refrescar la tabla
                         this.tabla(this.ventana.JTDatos);
-                        JOptionPane.showMessageDialog(null, "Registro borrado");
+                        //JOptionPane.showMessageDialog(null, "Registro borrado");
                     }else{
                         JOptionPane.showMessageDialog(null, "Imposible borrar este registro");
                     }
@@ -444,13 +554,17 @@ public class ctrlInventario implements ActionListener,KeyListener,FocusListener,
                         this.ventana.JLfilas.setText("Mostrando un total de "+modelo.getRowCount()+" Registros");
                         //Actualizar el codigo
                         this.codigo(this.ventana.jccategoria.getSelectedItem().toString());
-                        //Refrescar la tabla
-                        this.tabla(this.ventana.JTDatos);
-                        JOptionPane.showMessageDialog(null, "Registros borrados");
+                        //tratar de efrescar la tabla
+                        try {
+                            this.filtro(this.ventana.txttextoE.getText().toUpperCase(), this.ventana.JTDatos);
+                            //this.tabla(this.ventana.JTDatos);
+                        } catch (Exception ea) {
+                            ea.printStackTrace();
+                        }
+                        //JOptionPane.showMessageDialog(null, "Registros borrados");
                     }else{
                         JOptionPane.showMessageDialog(null, "Error al eliminar");
                     }
-                    
                 }
             }else{
                 JOptionPane.showMessageDialog(null, "Debes Seleccionar una fila","Aviso",JOptionPane.ERROR_MESSAGE);
@@ -476,6 +590,12 @@ public class ctrlInventario implements ActionListener,KeyListener,FocusListener,
     public void keyPressed(KeyEvent e) {
         //Filtrar una serie de resultados de la tabla al obtener la tecla insertada por el usuasio
         filtro(this.ventana.txttextoE.getText().toUpperCase(), this.ventana.JTDatos);
+        if (!this.ventana.txttextoE.getText().equals("")) {
+            this.ventana.JLfilas.setText("Mostrando "+this.ventana.JTDatos.getRowCount()+" "
+                    + "registros filtrado de un total de "+this.consul.numFilas());
+        }else{
+            this.ventana.JLfilas.setText("Mostrando un total de "+this.consul.numFilas());
+        }
         //Asignar el foco a el sigiente cuadro de texto
         if (e.getComponent() == this.ventana.JCondicion) {
             if (e.getKeyCode() == KeyEvent.VK_ENTER) {

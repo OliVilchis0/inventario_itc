@@ -51,7 +51,7 @@ public class viewEncargado extends javax.swing.JPanel {
         JPInferior = new javax.swing.JPanel();
         lbFilas = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnPdf = new javax.swing.JButton();
         JPIcono = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -161,13 +161,13 @@ public class viewEncargado extends javax.swing.JPanel {
         jButton1.setBorderPainted(false);
         JPInferior.add(jButton1);
 
-        jButton2.setBackground(new java.awt.Color(52, 58, 64));
-        jButton2.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pdf.png"))); // NOI18N
-        jButton2.setText("PDF");
-        jButton2.setBorderPainted(false);
-        JPInferior.add(jButton2);
+        btnPdf.setBackground(new java.awt.Color(52, 58, 64));
+        btnPdf.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        btnPdf.setForeground(new java.awt.Color(255, 255, 255));
+        btnPdf.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pdf.png"))); // NOI18N
+        btnPdf.setText("PDF");
+        btnPdf.setBorderPainted(false);
+        JPInferior.add(btnPdf);
 
         JPIcono.setBackground(new java.awt.Color(255, 255, 255));
         JPIcono.setLayout(new java.awt.GridLayout(1, 0));
@@ -203,10 +203,9 @@ public class viewEncargado extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(JPBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(JPTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(JPTabla, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addComponent(JPInferior, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(JPInferior, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -220,8 +219,8 @@ public class viewEncargado extends javax.swing.JPanel {
     private javax.swing.JPanel JPTabla;
     public javax.swing.JTable JTabla;
     public javax.swing.JButton btnGuardar;
+    public javax.swing.JButton btnPdf;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     public javax.swing.JComboBox jCFilas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -47,7 +47,7 @@ public class viewTipo extends javax.swing.JPanel {
         jpinferior = new javax.swing.JPanel();
         lbFilas = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnPdf = new javax.swing.JButton();
         JPicono = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
 
@@ -145,13 +145,13 @@ public class viewTipo extends javax.swing.JPanel {
         jButton1.setBorderPainted(false);
         jpinferior.add(jButton1);
 
-        jButton2.setBackground(new java.awt.Color(52, 58, 64));
-        jButton2.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pdf.png"))); // NOI18N
-        jButton2.setText("PDF");
-        jButton2.setBorderPainted(false);
-        jpinferior.add(jButton2);
+        btnPdf.setBackground(new java.awt.Color(52, 58, 64));
+        btnPdf.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        btnPdf.setForeground(new java.awt.Color(255, 255, 255));
+        btnPdf.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pdf.png"))); // NOI18N
+        btnPdf.setText("PDF");
+        btnPdf.setBorderPainted(false);
+        jpinferior.add(btnPdf);
 
         JPicono.setBackground(new java.awt.Color(255, 255, 255));
         JPicono.setLayout(new java.awt.GridLayout(1, 0));
@@ -200,8 +200,8 @@ public class viewTipo extends javax.swing.JPanel {
     private javax.swing.JPanel JPicono;
     public javax.swing.JTable JTabla;
     public javax.swing.JButton bntGuardar;
+    public javax.swing.JButton btnPdf;
     public javax.swing.JButton jButton1;
-    public javax.swing.JButton jButton2;
     public javax.swing.JComboBox jCFilas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -38,6 +38,8 @@ public class ctrlEncargado implements ActionListener,KeyListener{
         this.ve.btnGuardar.addActionListener(this);
         this.ve.jmEliminar.addActionListener(this);
         this.ve.jCFilas.addActionListener(this);
+        //Bloquear el boton pdf
+        this.ve.btnPdf.setEnabled(false);
     }
     //Lista todos los registros en una tabla
     public void tabla(JTable tabla){
@@ -95,8 +97,17 @@ public class ctrlEncargado implements ActionListener,KeyListener{
                 ecgd.setCargo(this.ve.txtCargo.getText());
                 if (this.ec.registrar(ecgd)) {
                     this.limpiar();
-                    this.tabla(this.ve.JTabla);
-                    JOptionPane.showMessageDialog(null, "Ragistro guardado exitosamente","Mensaje",JOptionPane.INFORMATION_MESSAGE);
+                    //tratar de refrescar la tabla
+                    try {
+                        this.tabla(this.ve.JTabla);
+                    } catch (Exception e) {
+                        //Agregar los datos a la tabla
+                        Object[] datos = {ecgd.getNombre(),ecgd.getAp1(),ecgd.getAp2(),ecgd.getCargo()};
+                        this.modelo.addRow(datos);
+                    }
+                    //Establecer el foco en la caja de texto nombre
+                    this.ve.txtNombre.requestFocus();
+                    //JOptionPane.showMessageDialog(null, "Ragistro guardado exitosamente","Mensaje",JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     this.tabla(this.ve.JTabla);
                     JOptionPane.showMessageDialog(null, "Error al intentar guardar el registro","Mensaje",JOptionPane.ERROR_MESSAGE);
@@ -146,7 +157,7 @@ public class ctrlEncargado implements ActionListener,KeyListener{
                         this.ve.lbFilas.setText("Mostrando un total de "+modelo.getRowCount()+" Registros");
                         //Refrescar la tabla
                         this.tabla(this.ve.JTabla);
-                        JOptionPane.showMessageDialog(null, "Registro borrado");
+                        //JOptionPane.showMessageDialog(null, "Registro borrado");
                     }else{
                         JOptionPane.showMessageDialog(null, "Imposible borrar este registro");
                     }
@@ -160,7 +171,7 @@ public class ctrlEncargado implements ActionListener,KeyListener{
                     codigo = new int[fila.length];
                     //Recorrer el array con FOR para establecer los codigos en modelo inventario
                     for (int i = 0; i < codigo.length; i++) {
-                        Object id = this.ve.JTabla.getValueAt(fila[0], 0);
+                        Object id = this.ve.JTabla.getValueAt(fila[i], 0);
                         codigo[i] = Integer.parseInt(id.toString());
                         encargado.setId(codigo[i]);
                         if (this.ec.Eliminar(encargado)) {
@@ -175,7 +186,7 @@ public class ctrlEncargado implements ActionListener,KeyListener{
                         this.ve.lbFilas.setText("Mostrando un total de "+modelo.getRowCount()+" Registros");
                         //Refrescar la tabla
                         this.tabla(this.ve.JTabla);
-                        JOptionPane.showMessageDialog(null, "Registros borrados");
+                        //JOptionPane.showMessageDialog(null, "Registros borrados");
                     }else{
                         JOptionPane.showMessageDialog(null, "Error al eliminar");
                     }
