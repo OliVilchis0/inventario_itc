@@ -109,7 +109,7 @@ public class viewPrincipal extends javax.swing.JPanel {
 
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("Areas");
+        jLabel9.setText("Áreas");
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -131,7 +131,7 @@ public class viewPrincipal extends javax.swing.JPanel {
         JPAreas.add(jPanel12, java.awt.BorderLayout.PAGE_START);
 
         btnAreas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/mas5.png"))); // NOI18N
-        btnAreas.setText("Areas en total");
+        btnAreas.setText("Áreas en total");
         btnAreas.setBorder(null);
         btnAreas.setBorderPainted(false);
         btnAreas.setContentAreaFilled(false);

@@ -1,7 +1,5 @@
 package controlador;
 
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -10,11 +8,8 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
-import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
 import javax.swing.table.TableRowSorter;
-import modelo.Area;
 import modelo.Encargado;
 import modelo.EncargadoCrud;
 import vista.viewEncargado;
@@ -22,7 +17,6 @@ import vista.viewEncargado;
 public class ctrlEncargado implements ActionListener,KeyListener{
     private viewEncargado ve;
     private EncargadoCrud ec;
-    private DefaultTableModel modelo;
     
     public ctrlEncargado(viewEncargado ve,EncargadoCrud ec) {
         this.ve = ve;
@@ -30,7 +24,7 @@ public class ctrlEncargado implements ActionListener,KeyListener{
         this.ve.setLocation(1,1);
         this.ec = ec;
         //Lanzar Tabla
-        this.tabla(this.ve.JTabla);
+        this.tabla();
         //Activar Boton para lanzar evento Keylistener
         this.ve.txtBuscar.addKeyListener(this);
         this.ve.JTabla.addKeyListener(this);
@@ -42,41 +36,28 @@ public class ctrlEncargado implements ActionListener,KeyListener{
         this.ve.btnPdf.setEnabled(false);
     }
     //Lista todos los registros en una tabla
-    public void tabla(JTable tabla){
-        //propiedades del header de la tabla
-        JTableHeader THeader = tabla.getTableHeader();
-        THeader.setBackground(new Color(52,58,64));
-        THeader.setForeground(Color.white);
-        THeader.setFont(new Font("DejaVu Sans",Font.ITALIC,14));
-        THeader.setBorder(UIManager.getBorder("TableHeader.cellBorder"));
-        this.ve.JTabla.setRowHeight(25);
-        //tabla
-        modelo = new DefaultTableModel();
-        tabla.setModel(modelo);
-        //columnas de las tablas
-        modelo.addColumn("ID");
-        modelo.addColumn("Nombre");
-        modelo.addColumn("Primer Apellido");
-        modelo.addColumn("Segundo Apellido");
-        modelo.addColumn("Cargo");
+    public void tabla(){
+        while(this.ve.modelo.getRowCount() > 0){
+            this.ve.modelo.removeRow(0);
+        }
         //Asosiar tabla con el modelo
         ArrayList<Encargado> encargado = this.ec.consulta();
         //Recorrer la lista
         for (Encargado ecgd : encargado) {
             Object columna[] = new Object[5];
             columna[0] = ecgd.getId();
-            columna[1] = ecgd.getNombre();
-            columna[2] = ecgd.getAp1();
-            columna[3] = ecgd.getAp2();
-            columna[4] = ecgd.getCargo();
-            modelo.addRow(columna);
+            columna[1] = ecgd.getNombre().toUpperCase();
+            columna[2] = ecgd.getAp1().toUpperCase();
+            columna[3] = ecgd.getAp2().toUpperCase();
+            columna[4] = ecgd.getCargo().toUpperCase();
+            this.ve.modelo.addRow(columna);
         }
         this.ve.lbFilas.setText("Mostrando un total de "+ec.numFilas()+" Registros");
     }
     //filtrar un registro de la tabla
     public void filtro(String consulta,JTable jtableBuscar){
-        modelo = (DefaultTableModel) jtableBuscar.getModel();
-        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<>(modelo);
+        this.ve.modelo = (DefaultTableModel) jtableBuscar.getModel();
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<>(this.ve.modelo);
         jtableBuscar.setRowSorter(tr);
         tr.setRowFilter(RowFilter.regexFilter(consulta));
     }
@@ -99,17 +80,17 @@ public class ctrlEncargado implements ActionListener,KeyListener{
                     this.limpiar();
                     //tratar de refrescar la tabla
                     try {
-                        this.tabla(this.ve.JTabla);
+                        this.tabla();
                     } catch (Exception e) {
                         //Agregar los datos a la tabla
                         Object[] datos = {ecgd.getNombre(),ecgd.getAp1(),ecgd.getAp2(),ecgd.getCargo()};
-                        this.modelo.addRow(datos);
+                        this.ve.modelo.addRow(datos);
                     }
                     //Establecer el foco en la caja de texto nombre
                     this.ve.txtNombre.requestFocus();
                     //JOptionPane.showMessageDialog(null, "Ragistro guardado exitosamente","Mensaje",JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    this.tabla(this.ve.JTabla);
+                    this.tabla();
                     JOptionPane.showMessageDialog(null, "Error al intentar guardar el registro","Mensaje",JOptionPane.ERROR_MESSAGE);
                 }
             }
@@ -117,16 +98,16 @@ public class ctrlEncargado implements ActionListener,KeyListener{
         //Al seleccionar la cantidad de filas que se desea ver a traves del jcombobox
         if (ae.getSource() == this.ve.jCFilas) {
             //Actualizar la tabla
-            this.tabla(this.ve.JTabla);
+            this.tabla();
             try {
                 //Obtener la cantidad de filas que se deseean ver
                 int numRow = Integer.parseInt(this.ve.jCFilas.getSelectedItem().toString());
                 //Obtener el total de filas de la tabla
-                int numTotal = this.modelo.getRowCount();
+                int numTotal = this.ve.modelo.getRowCount();
                 //Restar las filas total con las que se desea ver
                 int totalRows = numTotal - numRow;
                 for (int i = 0; i < totalRows; i++) {
-                    this.modelo.removeRow(this.modelo.getRowCount() -1);
+                    this.ve.modelo.removeRow(this.ve.modelo.getRowCount() -1);
                 }
                 this.ve.lbFilas.setText("Mostrando "+numRow+" registros filtrado de un total de "+this.ec.numFilas());
             } catch (Exception ea) {
@@ -154,9 +135,9 @@ public class ctrlEncargado implements ActionListener,KeyListener{
                     //Eliminar el registro
                     if (this.ec.Eliminar(encargado)) {
                         //Actualizar la etiqueta donde muestra el total de registros
-                        this.ve.lbFilas.setText("Mostrando un total de "+modelo.getRowCount()+" Registros");
+                        this.ve.lbFilas.setText("Mostrando un total de "+this.ve.modelo.getRowCount()+" Registros");
                         //Refrescar la tabla
-                        this.tabla(this.ve.JTabla);
+                        this.tabla();
                         //JOptionPane.showMessageDialog(null, "Registro borrado");
                     }else{
                         JOptionPane.showMessageDialog(null, "Imposible borrar este registro");
@@ -183,9 +164,9 @@ public class ctrlEncargado implements ActionListener,KeyListener{
                     //Lanzar mensaje si todos los registros de guardaron
                     if (guardado) {
                         //Actualizar la etiqueta donde muestra el total de registros
-                        this.ve.lbFilas.setText("Mostrando un total de "+modelo.getRowCount()+" Registros");
+                        this.ve.lbFilas.setText("Mostrando un total de "+this.ve.modelo.getRowCount()+" Registros");
                         //Refrescar la tabla
-                        this.tabla(this.ve.JTabla);
+                        this.tabla();
                         //JOptionPane.showMessageDialog(null, "Registros borrados");
                     }else{
                         JOptionPane.showMessageDialog(null, "Error al eliminar");
@@ -226,11 +207,12 @@ public class ctrlEncargado implements ActionListener,KeyListener{
                 encargado.setAp1(ap1);
                 encargado.setAp2(ap2);
                 encargado.setCargo(cargo);
-                if (this.ec.modificar(encargado)) {
-                    
+                if (!this.ec.modificar(encargado)) {
+                    JOptionPane.showMessageDialog(null,"; (\nDebio ocurrir un error","AVISO",JOptionPane.ERROR_MESSAGE);
                 }
+                this.tabla();
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Ocurrio un error");
+                //JOptionPane.showMessageDialog(null, "Ocurrio un error");
             }
         }
     }

@@ -11,6 +11,10 @@ public class viewDialogEcgd extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.jPanel1.setBorder(BorderFactory.createEmptyBorder(10, 10,10,10));
+        this.txtAp1.setCaretColor(new Color(0,123,255));
+        this.txtAp2.setCaretColor(new Color(0,123,255));
+        this.txtCargo.setCaretColor(new Color(0,123,255));
+        this.txtNombre.setCaretColor(new Color(0,123,255));
     }
 
     @SuppressWarnings("unchecked")
@@ -62,7 +66,7 @@ public class viewDialogEcgd extends javax.swing.JDialog {
 
         jPanel6.add(jPanel7);
 
-        txtNombre.setBackground(new java.awt.Color(52, 58, 64));
+        txtNombre.setBackground(new java.awt.Color(181, 184, 177));
         txtNombre.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         txtNombre.setForeground(new java.awt.Color(255, 255, 255));
         txtNombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 123, 255)));
@@ -89,7 +93,7 @@ public class viewDialogEcgd extends javax.swing.JDialog {
 
         jPanel5.add(jPanel8);
 
-        txtAp1.setBackground(new java.awt.Color(52, 58, 64));
+        txtAp1.setBackground(new java.awt.Color(181, 184, 177));
         txtAp1.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         txtAp1.setForeground(new java.awt.Color(255, 255, 255));
         txtAp1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 123, 255)));
@@ -116,7 +120,7 @@ public class viewDialogEcgd extends javax.swing.JDialog {
 
         jPanel4.add(jPanel9);
 
-        txtAp2.setBackground(new java.awt.Color(52, 58, 64));
+        txtAp2.setBackground(new java.awt.Color(181, 184, 177));
         txtAp2.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         txtAp2.setForeground(new java.awt.Color(255, 255, 255));
         txtAp2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 123, 255)));
@@ -143,7 +147,7 @@ public class viewDialogEcgd extends javax.swing.JDialog {
 
         jPanel3.add(jPanel10);
 
-        txtCargo.setBackground(new java.awt.Color(52, 58, 64));
+        txtCargo.setBackground(new java.awt.Color(181, 184, 177));
         txtCargo.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         txtCargo.setForeground(new java.awt.Color(255, 255, 255));
         txtCargo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 123, 255)));

@@ -253,7 +253,7 @@
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="0"/>
-                    <Property name="text" type="java.lang.String" value="Areas"/>
+                    <Property name="text" type="java.lang.String" value="&#xc1;reas"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -263,7 +263,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/imagenes/mas5.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Areas en total"/>
+                <Property name="text" type="java.lang.String" value="&#xc1;reas en total"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="null"/>
                 </Property>

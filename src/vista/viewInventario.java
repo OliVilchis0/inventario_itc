@@ -1,18 +1,67 @@
 package vista;
 
-import exportarjtableexcel.Exportar;
+import reportes.Exportar;
+import java.awt.Color;
+import java.awt.Font;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumnModel;
 
 public class viewInventario extends javax.swing.JPanel {
-
+    
+    public DefaultTableModel modelo;
     
     public viewInventario() {
         initComponents();
+        this.tablaPropiedades();
+        this.tablaColum();
+    }
+    //Propiedades de la tabla
+    public void tablaPropiedades(){
+        //tabla
+        this.modelo = new DefaultTableModel();
+        //propiedades del header de la tabla
+        JTableHeader THeader = this.JTDatos.getTableHeader();
+        THeader.setBackground(new Color(52,58,64));
+        THeader.setForeground(Color.white);
+        THeader.setFont(new Font("DejaVu Sans",Font.ITALIC,14));
+        THeader.setBorder(UIManager.getBorder("TableHeader.cellBorder"));
+        //Tamaño del renglon
+        this.JTDatos.setRowHeight(25);
+        
+        //Añadir propiedades al modelo
+        this.JTDatos.setModel(this.modelo);
+    }
+    //Columnas de la tabla
+    public void tablaColum(){
+        //columnas de las tablas
+        this.modelo.addColumn("ID");
+        this.modelo.addColumn("Tipo");
+        this.modelo.addColumn("Descripción");
+        this.modelo.addColumn("Marca");
+        this.modelo.addColumn("Modelo");
+        this.modelo.addColumn("Condición");
+        this.modelo.addColumn("Área");
+        this.modelo.addColumn("Encargado");
+        this.modelo.addColumn("Detalles");
+        //Ancho de la columna
+        TableColumnModel columna = this.JTDatos.getColumnModel();
+        columna.getColumn(0).setPreferredWidth(150);
+        columna.getColumn(1).setPreferredWidth(150);
+        columna.getColumn(2).setPreferredWidth(200);
+        columna.getColumn(3).setPreferredWidth(200);
+        columna.getColumn(4).setPreferredWidth(200);
+        columna.getColumn(5).setPreferredWidth(110);
+        columna.getColumn(6).setPreferredWidth(150);
+        columna.getColumn(7).setPreferredWidth(260);
+        columna.getColumn(8).setPreferredWidth(280);
     }
 
     
@@ -21,6 +70,7 @@ public class viewInventario extends javax.swing.JPanel {
     private void initComponents() {
 
         submenuTabla = new javax.swing.JPopupMenu();
+        jmCodigoT = new javax.swing.JMenuItem();
         jmcodigo = new javax.swing.JMenuItem();
         JMEliminar = new javax.swing.JMenuItem();
         JMPropiedades = new javax.swing.JMenuItem();
@@ -58,7 +108,7 @@ public class viewInventario extends javax.swing.JPanel {
         jLabel11 = new javax.swing.JLabel();
         LbDetalles = new javax.swing.JLabel();
         txtdetalles = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         LbModelo = new javax.swing.JLabel();
@@ -84,14 +134,22 @@ public class viewInventario extends javax.swing.JPanel {
         submenuTabla.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         submenuTabla.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
+        jmCodigoT.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        jmCodigoT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/barras_azul.png"))); // NOI18N
+        jmCodigoT.setText("Imprimir Todos ");
+        submenuTabla.add(jmCodigoT);
+
+        jmcodigo.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         jmcodigo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/barras_azul.png"))); // NOI18N
         jmcodigo.setText("Imprimir codigo");
         submenuTabla.add(jmcodigo);
 
+        JMEliminar.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         JMEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/borrar_azul.png"))); // NOI18N
         JMEliminar.setText("Eliminar");
         submenuTabla.add(JMEliminar);
 
+        JMPropiedades.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         JMPropiedades.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/detalles.png"))); // NOI18N
         JMPropiedades.setText("Propiedades");
         submenuTabla.add(JMPropiedades);
@@ -124,7 +182,7 @@ public class viewInventario extends javax.swing.JPanel {
 
         lbcondicion.setFont(new java.awt.Font("DejaVu Sans", 2, 12)); // NOI18N
         lbcondicion.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lbcondicion.setText("Condicion");
+        lbcondicion.setText("Condición");
         lbcondicion.setAlignmentX(0.5F);
         jpinsetar.add(lbcondicion);
 
@@ -164,7 +222,7 @@ public class viewInventario extends javax.swing.JPanel {
 
         lbarea.setFont(new java.awt.Font("DejaVu Sans", 2, 12)); // NOI18N
         lbarea.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lbarea.setText("Area");
+        lbarea.setText("Área");
         lbarea.setAlignmentX(0.5F);
         jpinsetar.add(lbarea);
 
@@ -196,7 +254,7 @@ public class viewInventario extends javax.swing.JPanel {
 
         lbdescripcion.setBackground(new java.awt.Color(255, 255, 255));
         lbdescripcion.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
-        lbdescripcion.setText("Descripcion");
+        lbdescripcion.setText("Descripción");
         jPanel2.add(lbdescripcion);
 
         lbdescripcion1.setBackground(new java.awt.Color(255, 255, 255));
@@ -263,7 +321,7 @@ public class viewInventario extends javax.swing.JPanel {
 
         jpinsetar.add(jPanel5);
         jpinsetar.add(txtdetalles);
-        jpinsetar.add(jLabel6);
+        jpinsetar.add(jLabel3);
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setLayout(new java.awt.GridLayout(1, 0));
@@ -308,13 +366,13 @@ public class viewInventario extends javax.swing.JPanel {
 
         JTDatos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         JTDatos.setComponentPopupMenu(submenuTabla);
@@ -443,9 +501,9 @@ public class viewInventario extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -458,6 +516,7 @@ public class viewInventario extends javax.swing.JPanel {
     public javax.swing.JComboBox<String> jcarea;
     public javax.swing.JComboBox<String> jccategoria;
     public javax.swing.JComboBox<String> jcencargado;
+    public javax.swing.JMenuItem jmCodigoT;
     public javax.swing.JMenuItem jmcodigo;
     private javax.swing.JPanel jparea;
     private javax.swing.JPanel jpbuscar;

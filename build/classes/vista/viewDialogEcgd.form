@@ -88,7 +88,7 @@
             <Component class="javax.swing.JTextField" name="txtNombre">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="40" green="3a" red="34" type="rgb"/>
+                  <Color blue="b1" green="b8" red="b5" type="rgb"/>
                 </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Dialog" size="12" style="2"/>
@@ -155,7 +155,7 @@
             <Component class="javax.swing.JTextField" name="txtAp1">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="40" green="3a" red="34" type="rgb"/>
+                  <Color blue="b1" green="b8" red="b5" type="rgb"/>
                 </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Dialog" size="12" style="2"/>
@@ -222,7 +222,7 @@
             <Component class="javax.swing.JTextField" name="txtAp2">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="40" green="3a" red="34" type="rgb"/>
+                  <Color blue="b1" green="b8" red="b5" type="rgb"/>
                 </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Dialog" size="12" style="2"/>
@@ -289,7 +289,7 @@
             <Component class="javax.swing.JTextField" name="txtCargo">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="40" green="3a" red="34" type="rgb"/>
+                  <Color blue="b1" green="b8" red="b5" type="rgb"/>
                 </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Dialog" size="12" style="2"/>

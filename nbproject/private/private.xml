@@ -3,14 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/OLI_J/Documents/NetBeansProjects/inventario_itc/src/vista/viewDialogTipo.java</file>
-            <file>file:/C:/Users/OLI_J/Documents/NetBeansProjects/inventario_itc/src/vista/viewAreaAD.java</file>
+            <file>file:/C:/Users/OLI_J/Documents/NetBeansProjects/inventario_itc/src/reportes/codigoQR.jrxml</file>
             <file>file:/C:/Users/OLI_J/Documents/NetBeansProjects/inventario_itc/src/controlador/ctrlInventario.java</file>
-            <file>file:/C:/Users/OLI_J/Documents/NetBeansProjects/inventario_itc/src/vista/viewEncarAD.java</file>
-            <file>file:/C:/Users/OLI_J/Documents/NetBeansProjects/inventario_itc/src/vista/viewInventario.java</file>
-            <file>file:/C:/Users/OLI_J/Documents/NetBeansProjects/inventario_itc/src/controlador/ctrlPrincipal.java</file>
-            <file>file:/C:/Users/OLI_J/Documents/NetBeansProjects/inventario_itc/src/vista/viewDialogArea.java</file>
-            <file>file:/C:/Users/OLI_J/Documents/NetBeansProjects/inventario_itc/src/vista/viewDialogEcgd.java</file>
+            <file>file:/C:/Users/OLI_J/Documents/NetBeansProjects/inventario_itc/src/controlador/codigoQR.java</file>
+            <file>file:/C:/Users/OLI_J/Documents/NetBeansProjects/inventario_itc/src/vista/viewInicio.java</file>
         </group>
     </open-files>
 </project-private>

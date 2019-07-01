@@ -1,7 +1,5 @@
 package controlador;
 
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -10,10 +8,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
-import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
-import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableRowSorter;
 import modelo.Area;
 import modelo.AreaCrud;
@@ -22,7 +17,7 @@ import vista.viewAreas;
 public class ctrlArea implements ActionListener,KeyListener {
     private viewAreas va;
     private AreaCrud ac;
-    private DefaultTableModel modelo;
+    
     
     public ctrlArea(viewAreas va, AreaCrud ac){
         this.va = va;
@@ -30,7 +25,7 @@ public class ctrlArea implements ActionListener,KeyListener {
         this.va.setLocation(1,1);
         this.ac = ac;
         //Lanzar  tabla
-        this.tabla(this.va.jtarea);
+        this.tabla();
         //Activar boton para lanzar evento de KeyListener
         this.va.txtbuscar.addKeyListener(this);
         this.va.jtarea.addKeyListener(this);
@@ -42,35 +37,27 @@ public class ctrlArea implements ActionListener,KeyListener {
         this.va.btnPdf.setEnabled(false);
     }
     //Lista todos los registros en una tabla
-    public void tabla(JTable tabla){
-        //propiedades del header de la tabla
-        JTableHeader THeader = tabla.getTableHeader();
-        THeader.setBackground(new Color(52,58,64));
-        THeader.setForeground(Color.white);
-        THeader.setFont(new Font("DejaVu Sans",Font.ITALIC,14));
-        THeader.setBorder(UIManager.getBorder("TableHeader.cellBorder"));
-        this.va.jtarea.setRowHeight(25);
-        //tabla
-        modelo = new DefaultTableModel();
-        tabla.setModel(modelo);
-        //columnas de las tablas
-        modelo.addColumn("ID");
-        modelo.addColumn("DESCRIPCION");
+    public void tabla(){
+        //Resetear tabla
+        while(this.va.modelo.getRowCount() > 0){
+            this.va.modelo.removeRow(0);
+        }
         //Asosiar el arrayList del modelo
         ArrayList<Area> area = this.ac.consulta();
         //Recorrer la lista
         for (Area a : area) {
             Object columna[] = new Object[2];
             columna[0] = a.getId();
-            columna[1] = a.getDescripcion();
-            modelo.addRow(columna);
+            columna[1] = a.getDescripcion().toUpperCase();
+            this.va.modelo.addRow(columna);
         }
+        this.va.jtarea.setModel(this.va.modelo);
         this.va.lbTotalRow.setText("Mostrando un total de "+ac.numFilas()+" Registros");
     }
     //filtrar un registro de la tabla
     public void filtro(String consulta,JTable jtableBuscar){
-        modelo = (DefaultTableModel) jtableBuscar.getModel();
-        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<>(modelo);
+        this.va.modelo = (DefaultTableModel) jtableBuscar.getModel();
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<>(this.va.modelo);
         jtableBuscar.setRowSorter(tr);
         tr.setRowFilter(RowFilter.regexFilter(consulta));
     }
@@ -86,12 +73,12 @@ public class ctrlArea implements ActionListener,KeyListener {
                 area.setDescripcion(this.va.txtNuevaArea.getText());
                 if (this.ac.registrar(area)) {
                     this.limpiar();
-                    this.tabla(this.va.jtarea);
+                    this.tabla();
                     //Posicionar el foco en la caja de texto nueva area 
                     this.va.txtNuevaArea.requestFocus();
                     //JOptionPane.showMessageDialog(null, "Ragistro guardado exitosamente","Mensaje",JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    this.tabla(this.va.jtarea);
+                    this.tabla();
                     JOptionPane.showMessageDialog(null, "; )\nError al intentar guardar el registro","Mensaje",JOptionPane.ERROR_MESSAGE);
                 }
             }
@@ -99,16 +86,16 @@ public class ctrlArea implements ActionListener,KeyListener {
         //Al seleccionar la cantidad de filas que se desea ver a traves del jcombobox
         if (e.getSource() == this.va.jcFilas) {
             //Actualizar la tabla
-            this.tabla(this.va.jtarea);
+            this.tabla();
             try {
                 //Obtener la cantidad de filas que se deseean ver
                 int numRow = Integer.parseInt(this.va.jcFilas.getSelectedItem().toString());
                 //Obtener el total de filas de la tabla
-                int numTotal = this.modelo.getRowCount();
+                int numTotal = this.va.modelo.getRowCount();
                 //Restar las filas total con las que se desea ver
                 int totalRows = numTotal - numRow;
                 for (int i = 0; i < totalRows; i++) {
-                    this.modelo.removeRow(this.modelo.getRowCount() -1);
+                    this.va.modelo.removeRow(this.va.modelo.getRowCount() -1);
                 }
                 this.va.lbTotalRow.setText("Mostrando "+numRow+" registros filtrado de un total de "+this.ac.numFilas());
             } catch (Exception ea) {
@@ -136,9 +123,9 @@ public class ctrlArea implements ActionListener,KeyListener {
                     //Eliminar el registro
                     if (this.ac.Eliminar(area)) {
                         //Actualizar la etiqueta donde muestra el total de registros
-                        this.va.lbTotalRow.setText("Mostrando un total de "+modelo.getRowCount()+" Registros");
+                        this.va.lbTotalRow.setText("Mostrando un total de "+this.va.modelo.getRowCount()+" Registros");
                         //Refrescar la tabla
-                        this.tabla(this.va.jtarea);
+                        this.tabla();
                         //JOptionPane.showMessageDialog(null, "Registro borrado");
                     }else{
                         JOptionPane.showMessageDialog(null, "Imposible borrar este registro");
@@ -165,9 +152,9 @@ public class ctrlArea implements ActionListener,KeyListener {
                     //Lanzar mensaje si todos los registros de guardaron
                     if (guardado) {
                         //Actualizar la etiqueta donde muestra el total de registros
-                        this.va.lbTotalRow.setText("Mostrando un total de "+modelo.getRowCount()+" Registros");
+                        this.va.lbTotalRow.setText("Mostrando un total de "+this.va.modelo.getRowCount()+" Registros");
                         //Refrescar la tabla
-                        this.tabla(this.va.jtarea);
+                        this.tabla();
                         //JOptionPane.showMessageDialog(null, "Registros borrados");
                     }else{
                         JOptionPane.showMessageDialog(null, "Error al eliminar");
@@ -203,11 +190,12 @@ public class ctrlArea implements ActionListener,KeyListener {
                 Area area = new Area();
                 area.setId(id);
                 area.setDescripcion(nombre);
-                if (this.ac.modificar(area)) {
-                    
+                if (!this.ac.modificar(area)) {
+                    JOptionPane.showMessageDialog(null,"; (\nDebio ocurrir un error","AVISO",JOptionPane.ERROR_MESSAGE);
                 }
+                this.tabla();
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Ocurrio un error");
+                //JOptionPane.showMessageDialog(null, "Ocurrio un error");
             }
         }
     }

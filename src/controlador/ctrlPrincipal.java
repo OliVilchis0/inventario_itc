@@ -33,11 +33,9 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.ui.RectangleEdge;
 import org.jfree.ui.RectangleInsets;
-import vista.viewAreaAD;
 import vista.viewDialogArea;
 import vista.viewDialogEcgd;
 import vista.viewDialogTipo;
-import vista.viewEncarAD;
 import vista.viewPrincipal;
 
 public class ctrlPrincipal implements ActionListener {
@@ -95,7 +93,7 @@ public class ctrlPrincipal implements ActionListener {
          true, 
          false);
         //Establecer titulo
-        TextTitle titulo = new TextTitle("Condicion de inventario", new Font ("Verdana", Font.PLAIN , 17));
+        TextTitle titulo = new TextTitle("Condición de inventario", new Font ("Verdana", Font.PLAIN , 17));
         titulo.setPosition(RectangleEdge.BOTTOM);
         chart.setTitle(titulo);
         //Remover acotaciones
@@ -154,7 +152,7 @@ public class ctrlPrincipal implements ActionListener {
         JFreeChart barras = ChartFactory.createBarChart
         (
             "Hoa",
-            "Areas",
+            "Áreas",
             "Articulos",
             datos,
             PlotOrientation.VERTICAL,
@@ -163,7 +161,7 @@ public class ctrlPrincipal implements ActionListener {
             true
         );  
         //Establecer titulo
-        TextTitle titulo = new TextTitle("Articulos por area", new Font ("Verdana", Font.PLAIN , 17));
+        TextTitle titulo = new TextTitle("Articulos por área", new Font ("Verdana", Font.PLAIN , 17));
         titulo.setPosition(RectangleEdge.BOTTOM);
         barras.setTitle(titulo);
         //Remover acotaciones
@@ -251,6 +249,9 @@ public class ctrlPrincipal implements ActionListener {
                 vp.lbareas.setText(Integer.toString(ac.numFilas()));
             }
         }
+        
+        
+        
         //lanzar vantana para agregar una nueva categoria
         if (ae.getSource() == this.vp.btnCategory) {
            //obtener las coordenadas del raton para que se visualize el JDialog
@@ -268,7 +269,7 @@ public class ctrlPrincipal implements ActionListener {
             view.setLocation(x-400, y);
             view.setVisible(true);
             //abrir ventana hasta que el usuasio presione cancelar en el jdialog
-            while(view.estado){
+            while(view.estado != -1){
                 //Obtener los datos de las cajas de texto
                 String nombre = view.txtNombre.getText();
                 String descripcion = view.txtDescripcion.getText();
@@ -276,6 +277,16 @@ public class ctrlPrincipal implements ActionListener {
                 tipo.setNombre(nombre);
                 tipo.setDescripcion(descripcion);
                 //ingresar los datos a la DB
+                if (view.estado == 0) {
+                    //ingresar los datos a la DB
+                    if (!tipoC.registrar(tipo)) {
+                        JOptionPane.showMessageDialog(null,"; (\nDebio Ocurrir un error","Aviso",JOptionPane.ERROR_MESSAGE);
+                    }
+                    vp.lbcategorias.setText(Integer.toString(tc.numFilas()));
+                    //Romper el ciclo
+                    break;
+                }
+                //ingresar los datos y abrir nuevamente
                 if (!tipoC.registrar(tipo)) {
                     JOptionPane.showMessageDialog(null,"; (\nDebio Ocurrir un error","Aviso",JOptionPane.ERROR_MESSAGE);
                 }
@@ -286,6 +297,8 @@ public class ctrlPrincipal implements ActionListener {
                 vp.lbcategorias.setText(Integer.toString(tc.numFilas()));
             } 
         }
+        
+        
         if (ae.getSource() == this.vp.btnEncar) {
            //obtener las coordenadas del raton para que se visualize el JDialog
             Point punto = MouseInfo.getPointerInfo().getLocation();

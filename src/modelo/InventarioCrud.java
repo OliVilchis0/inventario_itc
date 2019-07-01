@@ -7,10 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Map;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 public class InventarioCrud extends Conexion{
     //Ingresa un registro 

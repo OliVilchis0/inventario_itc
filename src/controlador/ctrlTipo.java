@@ -1,7 +1,5 @@
 package controlador;
 
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -10,9 +8,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
-import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
 import javax.swing.table.TableRowSorter;
 import modelo.TipoCrud;
 import modelo.TipoPro;
@@ -23,7 +19,6 @@ public class ctrlTipo implements ActionListener,KeyListener{
     private TipoPro tp;
     private TipoCrud tc;
     private viewTipo vt;
-    private DefaultTableModel modelo;
     
     public ctrlTipo(TipoCrud tc, viewTipo vt){
         this.tc = tc;
@@ -31,7 +26,7 @@ public class ctrlTipo implements ActionListener,KeyListener{
         this.vt.setSize(829,431);
         this.vt.setLocation(1, 1);
         //Lanzar tabla de datos
-        this.tabla(this.vt.JTabla);
+        this.tabla();
         //Activar Botones para lanzar evento ActionListener
         this.vt.bntGuardar.addActionListener(this);
         this.vt.jCFilas.addActionListener(this);
@@ -43,37 +38,27 @@ public class ctrlTipo implements ActionListener,KeyListener{
         this.vt.btnPdf.setEnabled(false);
     }
     //Lista todos los registros en una tabla
-    public void tabla(JTable tabla){
-        //propiedades del header de la tabla
-        JTableHeader THeader = tabla.getTableHeader();
-        THeader.setBackground(new Color(52,58,64));
-        THeader.setForeground(Color.white);
-        THeader.setFont(new Font("DejaVu Sans",Font.ITALIC,14));
-        THeader.setBorder(UIManager.getBorder("TableHeader.cellBorder"));
-        this.vt.JTabla.setRowHeight(25);
-        //tabla
-        modelo = new DefaultTableModel();
-        tabla.setModel(modelo);
-        //columnas de las tablas
-        modelo.addColumn("ID");
-        modelo.addColumn("Nombre");
-        modelo.addColumn("DESCRIPCION");
+    public void tabla(){
+        while(this.vt.modelo.getRowCount() > 0){
+            this.vt.modelo.removeRow(0);
+        }
         //Asosiar tabla con el modelo
         ArrayList<TipoPro> tipo = this.tc.consulta();
         //Recorrer la lista
         for (TipoPro tp : tipo) {
             Object[] columna = new Object[3];
             columna[0] = tp.getId();
-            columna[1] = tp.getNombre();
-            columna[2] = tp.getDescripcion();
-            modelo.addRow(columna);
+            columna[1] = tp.getNombre().toUpperCase();
+            columna[2] = tp.getDescripcion().toUpperCase();
+            this.vt.modelo.addRow(columna);
         }
+        this.vt.JTabla.setModel(this.vt.modelo);
         this.vt.lbFilas.setText("Mostrando un total de "+tc.numFilas()+" Registros");
     }
     //filtrar un registro de la tabla
     public void filtro(String consulta,JTable jtableBuscar){
-        modelo = (DefaultTableModel) jtableBuscar.getModel();
-        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<>(modelo);
+        this.vt.modelo = (DefaultTableModel) jtableBuscar.getModel();
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<>(this.vt.modelo);
         jtableBuscar.setRowSorter(tr);
         tr.setRowFilter(RowFilter.regexFilter(consulta));
     }
@@ -92,16 +77,15 @@ public class ctrlTipo implements ActionListener,KeyListener{
                     this.limpiar();
                     //tratar de actualizar la tabla
                     try {
-                        this.tabla(this.vt.JTabla);
+                        this.tabla();
                     } catch (Exception e) {
                         Object[] datos = {tipo.getId(),tipo.getNombre(),tipo.getDescripcion()};
-                        modelo.addRow(datos);
+                        this.vt.modelo.addRow(datos);
                     }
                     //Establecer el foco en la caja de texto nombre
                     this.vt.txtNombre.requestFocus();
                     //JOptionPane.showMessageDialog(null, "Ragistro guardado exitosamente","Mensaje",JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    this.tabla(this.vt.JTabla);
                     JOptionPane.showMessageDialog(null, "; )\nError al intentar guardar el registro","Mensaje",JOptionPane.ERROR_MESSAGE);
                 }
             }
@@ -109,16 +93,16 @@ public class ctrlTipo implements ActionListener,KeyListener{
         //Al seleccionar la cantidad de filas que se desea ver a traves del jcombobox
         if (ae.getSource() == this.vt.jCFilas) {
             //Actualizar la tabla
-            this.tabla(this.vt.JTabla);
+            this.tabla();
             try {
                 //Obtener la cantidad de filas que se deseean ver
                 int numRow = Integer.parseInt(this.vt.jCFilas.getSelectedItem().toString());
                 //Obtener el total de filas de la tabla
-                int numTotal = this.modelo.getRowCount();
+                int numTotal = this.vt.modelo.getRowCount();
                 //Restar las filas total con las que se desea ver
                 int totalRows = numTotal - numRow;
                 for (int i = 0; i < totalRows; i++) {
-                    this.modelo.removeRow(this.modelo.getRowCount() -1);
+                    this.vt.modelo.removeRow(this.vt.modelo.getRowCount() -1);
                 }
                 this.vt.lbFilas.setText("Mostrando "+numRow+" registros filtrado de un total de "+this.tc.numFilas());
             } catch (Exception ea) {
@@ -146,12 +130,12 @@ public class ctrlTipo implements ActionListener,KeyListener{
                     //Eliminar el registro
                     if (this.tc.Eliminar(tipo)) {
                         //Actualizar la etiqueta donde muestra el total de registros
-                        this.vt.lbFilas.setText("Mostrando un total de "+modelo.getRowCount()+" Registros");
+                        this.vt.lbFilas.setText("Mostrando un total de "+this.vt.modelo.getRowCount()+" Registros");
                         //Tratar de refrescar la tabla
                         try {
-                            this.tabla(this.vt.JTabla);
+                            this.tabla();
                         } catch (Exception e) {
-                            this.modelo.removeRow(fila[0]);
+                            this.vt.modelo.removeRow(fila[0]);
                         }
                         //JOptionPane.showMessageDialog(null, "Registro borrado");
                     }else{
@@ -170,7 +154,6 @@ public class ctrlTipo implements ActionListener,KeyListener{
                         Object id = this.vt.JTabla.getValueAt(fila[i], 0);
                         codigo[i] = Integer.parseInt(id.toString());
                         tipo.setId(codigo[i]);
-                        System.out.println(tipo.getId());
                         if (this.tc.Eliminar(tipo)) {
                             guardado = true;
                         }else{
@@ -180,9 +163,9 @@ public class ctrlTipo implements ActionListener,KeyListener{
                     //Lanzar mensaje si todos los registros de guardaron
                     if (guardado) {
                         //Actualizar la etiqueta donde muestra el total de registros
-                        this.vt.lbFilas.setText("Mostrando un total de "+modelo.getRowCount()+" Registros");
+                        this.vt.lbFilas.setText("Mostrando un total de "+this.vt.modelo.getRowCount()+" Registros");
                         //Refrescar la tabla
-                        this.tabla(this.vt.JTabla);
+                        this.tabla();
                         //JOptionPane.showMessageDialog(null, "Registros borrados");
                     }else{
                         JOptionPane.showMessageDialog(null, "Error al eliminar");
@@ -222,8 +205,9 @@ public class ctrlTipo implements ActionListener,KeyListener{
                 if (!this.tc.modificar(tipo)) {
                     JOptionPane.showMessageDialog(null,"; (\nDebio Ocurrir un error","AVISO",JOptionPane.ERROR_MESSAGE);
                 }
+                this.tabla();
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Ocurrio un error");
+                //JOptionPane.showMessageDialog(null, "Ocurrio un error");
             }
         }
     }

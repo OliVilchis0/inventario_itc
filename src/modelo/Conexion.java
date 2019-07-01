@@ -2,7 +2,6 @@ package modelo;
 
 import com.mysql.jdbc.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,11 +21,11 @@ public class Conexion {
             con = (Connection) DriverManager.getConnection(this.url, this.user, this.pass);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "; (\nSin Conenxion\n"+e,"Error",JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
         }
         catch(ClassNotFoundException ex){
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
         return con;
     }
-  
 }

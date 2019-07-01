@@ -11,6 +11,7 @@ public class viewDialogArea extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.jPanel1.setBorder(BorderFactory.createEmptyBorder(10, 10,10,10));
+        this.txtNombre.setCaretColor(new Color(0,123,255));
     }
 
     @SuppressWarnings("unchecked")
@@ -69,7 +70,7 @@ public class viewDialogArea extends javax.swing.JDialog {
 
         jPanel2.add(jPanel4);
 
-        txtNombre.setBackground(new java.awt.Color(52, 58, 64));
+        txtNombre.setBackground(new java.awt.Color(181, 184, 177));
         txtNombre.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         txtNombre.setForeground(new java.awt.Color(255, 255, 255));
         txtNombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 123, 255)));

@@ -34,9 +34,6 @@ public class viewInicio extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         JPPrincipal = new javax.swing.JPanel();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu2 = new javax.swing.JMenu();
-        jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(800, 500));
@@ -85,7 +82,7 @@ public class viewInicio extends javax.swing.JFrame {
         btnareas.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         btnareas.setForeground(new java.awt.Color(255, 255, 255));
         btnareas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/areas.png"))); // NOI18N
-        btnareas.setText(" Areas                                 ");
+        btnareas.setText(" Áreas                                 ");
         btnareas.setToolTipText("");
         btnareas.setBorderPainted(false);
         btnareas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -201,7 +198,7 @@ public class viewInicio extends javax.swing.JFrame {
         );
         JPPrincipalLayout.setVerticalGroup(
             JPPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 431, Short.MAX_VALUE)
+            .addGap(0, 454, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout JPFondoLayout = new javax.swing.GroupLayout(JPFondo);
@@ -222,17 +219,9 @@ public class viewInicio extends javax.swing.JFrame {
             .addGroup(JPFondoLayout.createSequentialGroup()
                 .addComponent(JPTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(JPPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE))
-            .addComponent(JPSidebar, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE)
+                .addComponent(JPPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE))
+            .addComponent(JPSidebar, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)
         );
-
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
-
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
-
-        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -303,9 +292,6 @@ public class viewInicio extends javax.swing.JFrame {
     public javax.swing.JLabel jLabel4;
     public javax.swing.JLabel jLabel5;
     public javax.swing.JLabel jLabel7;
-    public javax.swing.JMenu jMenu1;
-    public javax.swing.JMenu jMenu2;
-    public javax.swing.JMenuBar jMenuBar1;
     public javax.swing.JPanel jPanel16;
     // End of variables declaration//GEN-END:variables
 }
